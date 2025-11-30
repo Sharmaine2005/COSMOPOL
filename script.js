@@ -20,9 +20,10 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
 
-    // --- Scroll Animations (Fade In) ---
+    // --- Scroll Animations (Smooth Upward Fade) ---
     const observerOptions = {
-        threshold: 0.1
+        threshold: 0.1,
+        rootMargin: "0px 0px -50px 0px" // Trigger slightly before element is fully in view
     };
 
     const observer = new IntersectionObserver((entries) => {
@@ -34,15 +35,16 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }, observerOptions);
 
-    const fadeElements = document.querySelectorAll('.card, .section-title, .about-content, .gallery-item');
+    const fadeElements = document.querySelectorAll('.card, .section-title, .about-content, .gallery-item, .partner-logo');
+    
     fadeElements.forEach(el => {
         el.style.opacity = '0';
-        el.style.transform = 'translateY(20px)';
-        el.style.transition = 'opacity 0.6s ease-out, transform 0.6s ease-out';
+        el.style.transform = 'translateY(30px)'; // Start lower
+        el.style.transition = 'opacity 0.8s ease-out, transform 0.8s cubic-bezier(0.25, 0.8, 0.25, 1)';
         observer.observe(el);
     });
 
-    // Add fade-in class style dynamically for JS usage
+    // Add fade-in class style dynamically
     const styleSheet = document.createElement("style");
     styleSheet.textContent = `
         .fade-in {

@@ -260,6 +260,8 @@ header {
     text-align: center;
     color: #fff;
     pointer-events: none; /* Allows mouse interaction with slider background behind text */
+
+    padding-top: 120px;
 }
 
 .hero-content-overlay h1 {
@@ -278,9 +280,13 @@ header {
 }
 
 /* Re-enable pointer events for the button */
+/* Find this existing rule in style.css and update it */
 .hero-content-overlay .btn {
     pointer-events: auto; 
     color: #fff;
+    
+    /* ADD THIS LINE to move the button down */
+    margin-top: 80px; /* You can increase this number (e.g., 80px) to move it lower */
 }
 .hero-content-overlay .btn:hover { color: #fff; }
 
@@ -481,6 +487,11 @@ footer {
     margin-bottom: 40px;
 }
 
+/* Fix for invisible logo in footer */
+footer .logo {
+    color: #ffffff; /* Sets 'COSMO' to white */
+}
+
 .footer-col h4 { color: #fff; margin-bottom: 25px; font-size: 1.2rem; }
 .footer-col ul li { margin-bottom: 12px; color: #ccc; }
 .footer-col p { color: #ccc; }
@@ -507,4 +518,64 @@ footer {
     .hero-content h1 { font-size: 2.8rem; }
     .hero { clip-path: none; } /* Remove slant on mobile for better space usage */
     footer { clip-path: none; padding-top: 50px; }
+}
+/* --- PROCESS / WORKFLOW STYLES --- */
+.process-steps {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 30px;
+    margin-top: 80px;
+    margin-bottom: 50px;
+    position: relative;
+}
+
+/* The connecting grey line */
+.process-steps::before {
+    content: '';
+    position: absolute;
+    top: 40px;
+    left: 50px;
+    right: 50px;
+    height: 2px;
+    background: #e0e0e0;
+    z-index: 0;
+}
+
+.step-item {
+    flex: 1;
+    min-width: 200px;
+    text-align: center;
+    position: relative;
+    z-index: 1;
+    /* Use var(--bg-color) if defined, otherwise white to mask the line */
+    background: #fff; 
+    padding: 0 10px;
+}
+
+.step-icon {
+    width: 80px;
+    height: 80px;
+    background: var(--highlight);
+    color: #fff;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 20px;
+    font-size: 1.5rem;
+    box-shadow: 0 10px 20px rgba(0,0,128,0.2);
+    transition: all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
+    border: 5px solid #fff; /* Thick border to hide the line behind it */
+}
+
+.step-item:hover .step-icon {
+    transform: scale(1.1) rotate(10deg);
+    background: var(--accent); /* Turns red on hover */
+    box-shadow: 0 0 20px var(--accent);
+}
+
+@media (max-width: 768px) {
+    .process-steps::before { display: none; } /* Hide line on mobile */
+    .process-steps { gap: 40px; }
 }

@@ -59,28 +59,17 @@ document.addEventListener('DOMContentLoaded', () => {
             const activeSlide = document.querySelector('.slide-bg.active');
             if (!activeSlide) return;
 
-            // Get window dimensions
             const windowWidth = window.innerWidth;
             const windowHeight = window.innerHeight;
-
-            // Calculate mouse position relative to the center of the screen
-            // (e.clientX is mouse X coordinate, windowWidth / 2 is center X)
             const mouseX = (e.clientX - (windowWidth / 2));
             const mouseY = (e.clientY - (windowHeight / 2));
-
-            // Dampening factor - higher number = subtler movement
-            // We divide the mouse distance by this number so the image doesn't move too much
             const dampen = 30; 
-
-            // Calculate movement values (invert signs to move opposite to mouse)
             const moveX = (mouseX / dampen) * -1;
             const moveY = (mouseY / dampen) * -1;
 
-            // Apply transform. We also add a slight scale (1.05) to prevent white borders showing during movement
             activeSlide.style.transform = `translate(${moveX}px, ${moveY}px) scale(1.05)`;
         });
 
-        // Reset position when mouse leaves hero area
         heroSection.addEventListener('mouseleave', () => {
              const activeSlide = document.querySelector('.slide-bg.active');
              if(activeSlide) {
@@ -89,10 +78,10 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    // --- Scroll Animations (Smooth Upward Fade) ---
+    // --- Scroll Animations ---
     const observerOptions = {
         threshold: 0.1,
-        rootMargin: "0px 0px -50px 0px" // Trigger slightly before element is fully in view
+        rootMargin: "0px 0px -50px 0px" 
     };
 
     const observer = new IntersectionObserver((entries) => {
@@ -108,12 +97,11 @@ document.addEventListener('DOMContentLoaded', () => {
     
     fadeElements.forEach(el => {
         el.style.opacity = '0';
-        el.style.transform = 'translateY(30px)'; // Start lower
+        el.style.transform = 'translateY(30px)'; 
         el.style.transition = 'opacity 0.8s ease-out, transform 0.8s cubic-bezier(0.25, 0.8, 0.25, 1)';
         observer.observe(el);
     });
 
-    // Add fade-in class style dynamically
     const styleSheet = document.createElement("style");
     styleSheet.textContent = `
         .fade-in {
@@ -122,5 +110,26 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     `;
     document.head.appendChild(styleSheet);
-    
+
+    // --- Contact Form Submission ---
+    const contactForm = document.getElementById('contactForm'); 
+
+    if (contactForm) {
+        contactForm.addEventListener('submit', (event) => {
+            event.preventDefault(); 
+
+            const nameInput = document.getElementById('senderName');    
+            const emailInput = document.getElementById('senderEmail');
+            const messageInput = document.getElementById('message');
+
+            if(nameInput && emailInput && messageInput) {
+                 alert("Your message has been sent. Thank you!");
+                 console.log("New Inquiry Message has been received.");
+                 contactForm.reset(); 
+            } else {
+                console.error("One or more form inputs are missing IDs");
+            }
+        });
+    }
+
 });

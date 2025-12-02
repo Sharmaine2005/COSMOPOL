@@ -254,14 +254,26 @@ header {
 }
 
 /* The Text Content sitting on top */
+/* --- CSS FIX FOR BUTTON CLICKING --- */
+
+/* 1. Allow mouse to pass through the text container */
 .hero-content-overlay {
     position: relative;
     z-index: 4;
     text-align: center;
     color: #fff;
-    pointer-events: none; /* Allows mouse interaction with slider background behind text */
-
+    pointer-events: none; /* KEY FIX: Let clicks pass through empty space */
     padding-top: 120px;
+}
+
+/* 2. Force the button to accept clicks */
+.hero-content-overlay .btn {
+    pointer-events: auto !important; /* KEY FIX: Re-enable clicking */
+    cursor: pointer;
+    color: #fff;
+    margin-top: 80px; 
+    position: relative;
+    z-index: 100; /* Ensure it sits on top of everything */
 }
 
 .hero-content-overlay h1 {

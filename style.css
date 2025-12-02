@@ -146,54 +146,130 @@ header {
     color: var(--highlight);
     text-transform: uppercase;
     position: relative;
+    padding-bottom: 5px;
 }
 
-/* Nav Hover Effect - Simple Red Dot */
+/* THE ANIMATED SHAPE (Dot -> Line) */
 .nav-links a::after {
     content: '';
     position: absolute;
-    width: 6px;
-    height: 6px;
-    background-color: var(--accent);
-    bottom: -10px;
     left: 50%;
-    transform: translateX(-50%) scale(0);
-    border-radius: 50%;
-    transition: var(--transition);
+    bottom: -5px; /* Position below text */
+    transform: translateX(-50%); /* Keeps it centered */
+    
+    /* Start State (Invisible Dot) */
+    width: 0; 
+    height: 6px; 
+    background-color: var(--accent);
+    border-radius: 100px; /* Fully rounded edges */
+    opacity: 0;
+    
+    /* The Magic: Smoothly animate width, height, and roundness */
+    transition: width 0.4s cubic-bezier(0.25, 0.8, 0.25, 1), 
+                height 0.4s cubic-bezier(0.25, 0.8, 0.25, 1), 
+                border-radius 0.4s ease, 
+                opacity 0.3s ease;
 }
 
-.nav-links a:hover::after, .nav-links a.active::after {
-    transform: translateX(-50%) scale(1);
+/* 1. HOVER STATE: The Dot */
+.nav-links a:hover::after {
+    width: 6px;       /* Small circle width */
+    height: 6px;      /* Small circle height */
+    opacity: 1;
+    border-radius: 100px; /* Stays a circle */
+}
+
+/* 2. ACTIVE STATE: The Underline */
+.nav-links a.active::after {
+    width: 100%;      /* Stretches to full text width */
+    height: 3px;      /* Shrinks in height to look like a line */
+    opacity: 1;
+    border-radius: 0; /* Removes roundness for sharp line edges */
+}
+
+/* Keep the line style if hovering over an active link */
+.nav-links a.active:hover::after {
+    width: 100%;
+    height: 3px;
+    border-radius: 0;
 }
 
 /* Mobile Menu Toggle */
 .menu-toggle { display: none; cursor: pointer; color: var(--highlight); font-size: 1.5rem; }
 
-/* --- HERO SECTION --- */
-.hero {
+/* --- HERO SLIDER SECTION --- */
+.hero-slider-section {
+    position: relative;
     height: 100vh;
-    /* Dark image required for contrast, or use overlay */
-    background: linear-gradient(rgba(0, 0, 50, 0.6), rgba(0, 0, 50, 0.4)), url('https://placehold.co/1920x1080/111/333?text=COSMOPOL+Automotive');
-    background-size: cover;
-    background-position: center;
-    background-attachment: fixed;
+    width: 100%;
+    overflow: hidden;
     display: flex;
     align-items: center;
-    justify-content: center;
-    text-align: center;
-    /* Creative Touch: Slanted bottom edge */
-    clip-path: polygon(0 0, 100% 0, 100% 90%, 0 100%);
-    margin-bottom: 50px;
+    /* Removed the slanted clip-path from previous version as it cuts off the slider */
+    margin-bottom: 0; 
+    background-color: #000; /* Fallback color */
 }
 
-.hero-content h1 {
+/* The Container for Background Images */
+.slider-container {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 1;
+}
+
+/* Individual Slide Backgrounds */
+.slide-bg {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-size: cover;
+    background-position: center;
+    opacity: 0; /* Hidden by default */
+    /* Smooth crossfade transition for changing slides */
+    transition: opacity 0.8s ease-in-out, transform 0.1s ease-out; 
+    will-change: transform, opacity;
+}
+
+/* The Active Slide */
+.slide-bg.active {
+    opacity: 1;
+    z-index: 2;
+}
+
+/* Dark Overlay for Readability */
+.hero-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 30, 0.5); /* Slight Navy tint overlay */
+    z-index: 3;
+    pointer-events: none; /* Let clicks pass through */
+}
+
+/* The Text Content sitting on top */
+.hero-content-overlay {
+    position: relative;
+    z-index: 4;
+    text-align: center;
+    color: #fff;
+    pointer-events: none; /* Allows mouse interaction with slider background behind text */
+}
+
+.hero-content-overlay h1 {
     font-size: 4.5rem;
     margin-bottom: 15px;
-    color: #fff; /* White text on dark hero image */
-    text-shadow: 0 5px 15px rgba(0,0,0,0.3);
+    color: #fff;
+    text-shadow: 0 5px 15px rgba(0,0,0,0.5);
 }
 
-.hero-content p {
+.hero-content-overlay p {
     font-size: 1.5rem;
     margin-bottom: 40px;
     color: #ddd;
@@ -201,10 +277,51 @@ header {
     font-weight: 300;
 }
 
-.hero .btn {
+/* Re-enable pointer events for the button */
+.hero-content-overlay .btn {
+    pointer-events: auto; 
     color: #fff;
 }
-.hero .btn:hover { color: #fff; }
+.hero-content-overlay .btn:hover { color: #fff; }
+
+
+/* Slider Arrows */
+.slider-arrow {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background: rgba(0, 0, 128, 0.3); /* Transparent Navy */
+    color: #fff;
+    border: none;
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    font-size: 1.2rem;
+    cursor: pointer;
+    z-index: 10;
+    transition: var(--transition);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    backdrop-filter: blur(5px);
+}
+
+.slider-arrow:hover {
+    background: var(--accent); /* Red on hover */
+    box-shadow: 0 0 15px var(--accent);
+}
+
+.prev-slide { left: 30px; }
+.next-slide { right: 30px; }
+
+/* Responsive Hero Adjustments */
+@media (max-width: 768px) {
+    .hero-content-overlay h1 { font-size: 2.8rem; }
+    .hero-content-overlay p { font-size: 1.1rem; letter-spacing: 1px; }
+    .slider-arrow { width: 40px; height: 40px; font-size: 1rem; }
+    .prev-slide { left: 10px; }
+    .next-slide { right: 10px; }
+}
 
 /* --- SECTIONS GENERAL --- */
 .section-title {

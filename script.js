@@ -54,3 +54,19 @@ document.addEventListener('DOMContentLoaded', () => {
     `;
     document.head.appendChild(styleSheet);
 });
+
+
+//Contact
+   //Form Submission
+    function newMessage(event){
+        event.preventDefault();
+
+        const nameInput = document.getElementById('senderName');    
+        const emailInput = document.getElementById('senderEmail');
+        const serviceInput = document.getElementById('serviceInterest');
+        const messageInput = document.getElementById('message');
+
+        alert("Your message has been sent. Thank you!");
+        console.log("New Inquiry Message has been received.");
+        window.location.reload();
+    }

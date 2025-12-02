@@ -20,68 +20,10 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
 
-    // --- HERO SLIDER FUNCTIONALITY ---
-    const slides = document.querySelectorAll('.slide-bg');
-    const nextBtn = document.querySelector('.next-slide');
-    const prevBtn = document.querySelector('.prev-slide');
-    let currentSlideIdx = 0;
-    const totalSlides = slides.length;
-
-    // Function to change slide
-    const changeSlide = (direction) => {
-        // Remove active class from current slide
-        slides[currentSlideIdx].classList.remove('active');
-        // Reset transform on the slide leaving so it doesn't look weird next time it loads
-        slides[currentSlideIdx].style.transform = `translate(0px, 0px) scale(1.05)`;
-
-        // Calculate new index depending on direction
-        if (direction === 'next') {
-            currentSlideIdx = (currentSlideIdx + 1) % totalSlides; // Loop back to 0 after last slide
-        } else {
-            currentSlideIdx = (currentSlideIdx - 1 + totalSlides) % totalSlides; // Loop to last slide if going back from 0
-        }
-
-        // Add active class to new slide
-        slides[currentSlideIdx].classList.add('active');
-    };
-
-    // Event Listeners for Arrows
-    if(nextBtn && prevBtn) {
-        nextBtn.addEventListener('click', () => changeSlide('next'));
-        prevBtn.addEventListener('click', () => changeSlide('prev'));
-    }
-
-    // --- CURSOR INTERACTION (Parallax Effect) ---
-    const heroSection = document.querySelector('.hero-slider-section');
-
-    if (heroSection) {
-        heroSection.addEventListener('mousemove', (e) => {
-            const activeSlide = document.querySelector('.slide-bg.active');
-            if (!activeSlide) return;
-
-            const windowWidth = window.innerWidth;
-            const windowHeight = window.innerHeight;
-            const mouseX = (e.clientX - (windowWidth / 2));
-            const mouseY = (e.clientY - (windowHeight / 2));
-            const dampen = 30; 
-            const moveX = (mouseX / dampen) * -1;
-            const moveY = (mouseY / dampen) * -1;
-
-            activeSlide.style.transform = `translate(${moveX}px, ${moveY}px) scale(1.05)`;
-        });
-
-        heroSection.addEventListener('mouseleave', () => {
-             const activeSlide = document.querySelector('.slide-bg.active');
-             if(activeSlide) {
-                 activeSlide.style.transform = `translate(0px, 0px) scale(1.05)`;
-             }
-        });
-    }
-
-    // --- Scroll Animations ---
+    // --- Scroll Animations (Smooth Upward Fade) ---
     const observerOptions = {
         threshold: 0.1,
-        rootMargin: "0px 0px -50px 0px" 
+        rootMargin: "0px 0px -50px 0px" // Trigger slightly before element is fully in view
     };
 
     const observer = new IntersectionObserver((entries) => {
@@ -97,11 +39,12 @@ document.addEventListener('DOMContentLoaded', () => {
     
     fadeElements.forEach(el => {
         el.style.opacity = '0';
-        el.style.transform = 'translateY(30px)'; 
+        el.style.transform = 'translateY(30px)'; // Start lower
         el.style.transition = 'opacity 0.8s ease-out, transform 0.8s cubic-bezier(0.25, 0.8, 0.25, 1)';
         observer.observe(el);
     });
 
+    // Add fade-in class style dynamically
     const styleSheet = document.createElement("style");
     styleSheet.textContent = `
         .fade-in {
@@ -110,26 +53,67 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     `;
     document.head.appendChild(styleSheet);
+});
 
-    // --- Contact Form Submission ---
-    const contactForm = document.getElementById('contactForm'); 
 
-    if (contactForm) {
-        contactForm.addEventListener('submit', (event) => {
-            event.preventDefault(); 
+//Contact
+   //Form Submission
+    function newMessage(event){
+        event.preventDefault();
 
-            const nameInput = document.getElementById('senderName');    
-            const emailInput = document.getElementById('senderEmail');
-            const messageInput = document.getElementById('message');
+        const nameInput = document.getElementById('senderName');    
+        const emailInput = document.getElementById('senderEmail');
+        const serviceInput = document.getElementById('serviceInterest');
+        const messageInput = document.getElementById('message');
 
-            if(nameInput && emailInput && messageInput) {
-                 alert("Your message has been sent. Thank you!");
-                 console.log("New Inquiry Message has been received.");
-                 contactForm.reset(); 
-            } else {
-                console.error("One or more form inputs are missing IDs");
-            }
-        });
+        alert("Your message has been sent. Thank you!");
+        console.log("New Inquiry Message has been received.");
+        window.location.reload();
     }
 
+
+
+document.addEventListener('DOMContentLoaded', () => {
+    
+    // 1. Select the elements
+    const track = document.getElementById('galleryTrack');
+    const prevBtn = document.getElementById('prevBtn');
+    const nextBtn = document.getElementById('nextBtn');
+
+    // 2. Function to update button visibility
+    function updateButtons() {
+        // Hide Left Button if at the start (0px scrolled)
+        if (track.scrollLeft <= 0) {
+            prevBtn.classList.add('hidden');
+        } else {
+            prevBtn.classList.remove('hidden');
+        }
+
+        // Hide Right Button if at the end
+        // (Scroll Amount + Visible Width) >= Total Content Width
+        // We use -1 tolerance for calculation precision
+        if (track.scrollLeft + track.clientWidth >= track.scrollWidth - 1) {
+            nextBtn.classList.add('hidden');
+        } else {
+            nextBtn.classList.remove('hidden');
+        }
+    }
+
+    // 3. Click Events for Buttons
+    prevBtn.addEventListener('click', () => {
+        // Scroll Left by 320px (Width of card + gap)
+        track.scrollBy({ left: -325, behavior: 'smooth' });
+    });
+
+    nextBtn.addEventListener('click', () => {
+        // Scroll Right by 320px
+        track.scrollBy({ left: 325, behavior: 'smooth' });
+    });
+
+    // 4. Listen for scrolling (happens via buttons or swipe)
+    track.addEventListener('scroll', updateButtons);
+
+    // 5. Initial check on page load
+    updateButtons();
 });
+

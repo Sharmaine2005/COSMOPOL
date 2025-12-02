@@ -4,27 +4,43 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Contact Us | COSMOPOL</title>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@600;700&family=Roboto:wght@300;400;500&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@600;700;800&family=Roboto:wght@300;400;500&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
+    <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
 </head>
 <body>
+
     <header>
         <div class="container nav-container">
             <div class="logo">COSMO<span>POL</span></div>
             <div class="menu-toggle">☰</div>
-            <nav><ul class="nav-links"><li><a href="index.html">Home</a></li><li><a href="about.html">About Us</a></li><li><a href="products.html">Product Lines</a></li><li><a href="services.html">Services</a></li><li><a href="gallery.html">Gallery</a></li><li><a href="contact.html" class="active">Contact Us</a></li></ul></nav>
+            <nav>
+                <ul class="nav-links">
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="about.html">About Us</a></li>
+                    <li><a href="products.html">Product Lines</a></li>
+                    <li><a href="services.html">Services</a></li>
+                    <li><a href="gallery.html">Gallery</a></li>
+                    <li><a href="contact.html" class="active">Contact Us</a></li>
+                </ul>
+            </nav>
         </div>
     </header>
 
-    <div style="height: 100px;"></div>
+    <section class="page-header-banner">
+        <div class="banner-watermark" aria-hidden="true">Contact</div>
+        <div class="container banner-content">
+            <h1>Get In Touch</h1>
+            <p>We are ready to assist you with your automotive needs.</p>
+        </div>
+    </section>
 
     <section class="section-padding">
         <div class="container">
-            <h1 class="section-title" data-title="ABOUT">About COSMOPOL</h1>
             <div class="contact-wrapper">
                 <div class="contact-info">
-                    <h3 class="text-highlight">Get in Touch</h3>
-                    <p style="margin-bottom: 20px;">We are ready to assist you with your automotive needs. Visit us or send a message.</p>
+                    <h3 class="text-highlight">Contact Info</h3>
+                    <p style="margin-bottom: 20px;">Visit our facility or reach out via phone/email for quotes and appointments.</p>
                     
                     <div style="margin-bottom: 20px;">
                         <h4>Address</h4>
@@ -39,45 +55,78 @@
                         <p>info@cosmopol.ph</p>
                     </div>
                     
-                    <div style="width: 100%; height: 250px; background: #222; display: flex; align-items: center; justify-content: center; margin-top: 30px; border: 1px solid #444;">
-                        <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d61775.93987722966!2d120.93828362168767!3d14.599289836858485!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3397ca03571ec38b%3A0x69d1d5751069c11f!2sManila%2C%20Metro%20Manila!5e0!3m2!1sen!2sph!4v1764585254794!5m2!1sen!2sph" style="border:0; width:100%; height:100%;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+                    <div style="width: 100%; height: 250px; background: #222; margin-top: 30px; border: 1px solid #444;">
+                        <iframe 
+                            width="100%" 
+                            height="100%" 
+                            id="gmap_canvas" 
+                            src="https://maps.google.com/maps?q=Manila&t=&z=13&ie=UTF8&iwloc=&output=embed" 
+                            frameborder="0" 
+                            scrolling="no" 
+                            marginheight="0" 
+                            marginwidth="0">
+                        </iframe>
                     </div>
                 </div>
 
                 <div class="contact-form">
                     <h3 class="text-highlight">Send Inquiry</h3>
-                    
-                    <form action="#" method="POST" id="contactForm">
-                        
+                    <form action="#" method="POST">
                         <div class="form-group">
                             <label>Name</label>
-                            <input type="text" id="senderName" placeholder="Your Name" required>
+                            <input type="text" placeholder="Your Name" required>
                         </div>
 
                         <div class="form-group">
                             <label>Email</label>
-                            <input type="email" id="senderEmail" placeholder="Your Email" required>
+                            <input type="email" placeholder="Your Email" required>
                         </div>
 
                         <div class="form-group">
                             <label>Service of Interest</label>
-                            <input type="text" id="serviceInterest" placeholder="e.g. Ceramic Coating">
+                            <input type="text" placeholder="e.g. Ceramic Coating">
                         </div>
 
                         <div class="form-group">
                             <label>Message</label>
-                            <textarea id="message" rows="5" placeholder="How can we help you?" required></textarea>
+                            <textarea rows="5" placeholder="How can we help you?" required></textarea>
                         </div>
-
+                        
                         <button type="submit" class="btn btn-primary">Send Message</button>
-                    
                     </form>
                 </div>
             </div>
         </div>
     </section>
 
-    <footer><div class="container footer-bottom text-center"><p>&copy; 2025 COSMOPOL. All Rights Reserved.</p></div></footer>
+    <footer>
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-col">
+                    <div class="logo">COSMO<span>POL</span></div>
+                    <p style="margin-top: 15px;">Superior in Every Way.</p>
+                </div>
+                <div class="footer-col">
+                    <h4>Location</h4>
+                    <p>123 Auto Avenue,<br>Metro Manila, Philippines</p>
+                </div>
+                <div class="footer-col">
+                    <h4>Contact</h4>
+                    <p>+63 917 123 4567</p>
+                    <p>info@cosmopol.ph</p>
+                </div>
+                <div class="footer-col">
+                    <h4>Hours</h4>
+                    <p>Mon - Sat: 9:00 AM - 6:00 PM</p>
+                    <p>Sun: Closed</p>
+                </div>
+            </div>
+            <div class="footer-bottom text-center">
+                <p>&copy; 2015-2025 COSMOPOL. All Rights Reserved.</p>
+            </div>
+        </div>
+    </footer>
+
     <script src="script.js"></script>
 </body>
 </html>

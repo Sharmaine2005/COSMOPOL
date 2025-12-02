@@ -54,3 +54,50 @@ document.addEventListener('DOMContentLoaded', () => {
     `;
     document.head.appendChild(styleSheet);
 });
+
+
+
+document.addEventListener('DOMContentLoaded', () => {
+    
+    // 1. Select the elements
+    const track = document.getElementById('galleryTrack');
+    const prevBtn = document.getElementById('prevBtn');
+    const nextBtn = document.getElementById('nextBtn');
+
+    // 2. Function to update button visibility
+    function updateButtons() {
+        // Hide Left Button if at the start (0px scrolled)
+        if (track.scrollLeft <= 0) {
+            prevBtn.classList.add('hidden');
+        } else {
+            prevBtn.classList.remove('hidden');
+        }
+
+        // Hide Right Button if at the end
+        // (Scroll Amount + Visible Width) >= Total Content Width
+        // We use -1 tolerance for calculation precision
+        if (track.scrollLeft + track.clientWidth >= track.scrollWidth - 1) {
+            nextBtn.classList.add('hidden');
+        } else {
+            nextBtn.classList.remove('hidden');
+        }
+    }
+
+    // 3. Click Events for Buttons
+    prevBtn.addEventListener('click', () => {
+        // Scroll Left by 320px (Width of card + gap)
+        track.scrollBy({ left: -325, behavior: 'smooth' });
+    });
+
+    nextBtn.addEventListener('click', () => {
+        // Scroll Right by 320px
+        track.scrollBy({ left: 325, behavior: 'smooth' });
+    });
+
+    // 4. Listen for scrolling (happens via buttons or swipe)
+    track.addEventListener('scroll', updateButtons);
+
+    // 5. Initial check on page load
+    updateButtons();
+});
+

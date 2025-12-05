@@ -5,30 +5,15 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>COSMOPOL | Superior in Every Way</title>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@600;700;800&family=Roboto:wght@300;400;500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="stylesheet" href="style.css">
     <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
 </head>
 <body>
 
-    <header>
-        <div class="container nav-container">
-            <div class="logo">COSMO<span>POL</span></div>
-            <div class="menu-toggle">☰</div>
-            <nav>
-                <ul class="nav-links">
-                    <li><a href="index.html">Home</a></li>
-                    <li><a href="about.html">About Us</a></li>
-                    <li><a href="products.html">Product Lines</a></li>
-                    <li><a href="services.html">Services</a></li>
-                    <li><a href="gallery.html">Gallery</a></li>
-                    <li><a href="contact.html">Contact Us</a></li>
-                </ul>
-            </nav>
-        </div>
-    </header>
+    <div id="header-placeholder"></div>
 
     <section id="home" class="hero-slider-section">
-        
         <div class="slider-container">
             <div class="slide-bg active" style="background-image: url('images/HeroImage1.png');"></div>
             <div class="slide-bg" style="background-image: url('images/HeroImage2.png');"></div>
@@ -42,14 +27,14 @@
         <div class="hero-content-overlay container">
             <h1>Superior in Every Way</h1>
             <p>Premium Automotive Solutions & Innovation</p>
-            <a href="products.html" class="btn btn-hero">Explore Products</a>
+            <a href="#discover" class="btn btn-hero">Discover More</a>
         </div>
 
         <button class="slider-arrow prev-slide"><i class="fas fa-chevron-left"></i></button>
         <button class="slider-arrow next-slide"><i class="fas fa-chevron-right"></i></button>
     </section>
 
-    <section class="section-padding">
+    <section id="discover" class="section-padding">
         <div class="container">
             <h2 class="section-title" data-title="ABOUT">Who We Are</h2>
             <div class="grid-3">
@@ -89,19 +74,18 @@
     <section class="section-padding">
         <div class="container">
             <h2 class="section-title" data-title="SERVICES">Our Services</h2>
-            
             <div class="grid-3">
                 <div class="card">
                     <img src="https://placehold.co/400x250/000080/FFF?text=Detailing" alt="Detailing">
-                    <h3>Premium Detailing</h3>
+                    <div class="card-body"><h3>Premium Detailing</h3></div>
                 </div>
                 <div class="card">
                     <img src="https://placehold.co/400x250/000080/FFF?text=Wrapping" alt="Wrapping">
-                    <h3>Vehicle Wraps</h3>
+                    <div class="card-body"><h3>Vehicle Wraps</h3></div>
                 </div>
                 <div class="card">
                     <img src="https://placehold.co/400x250/000080/FFF?text=Tinting" alt="Tinting">
-                    <h3>Window Tinting</h3>
+                    <div class="card-body"><h3>Window Tinting</h3></div>
                 </div>
             </div>
 
@@ -124,23 +108,71 @@
                 </div>
             </div>
 
-            <div class="text-center">
+            <div class="text-center" style="margin-top: 60px;">
                 <a href="services.html" class="btn">See Full Services</a>
             </div>
         </div>
     </section>
 
     <section class="section-padding" style="background-color: #f9f9f9;">
-        <div class="container">
-            <h2 class="section-title" data-title="GALLERY">Recent Work</h2>
-            <div class="gallery-grid">
-                <div class="gallery-item"><img src="https://placehold.co/400x300/eee/333?text=Supercar" alt="Work 1"></div>
-                <div class="gallery-item"><img src="https://placehold.co/400x300/eee/333?text=Ceramic" alt="Work 2"></div>
-                <div class="gallery-item"><img src="https://placehold.co/400x300/eee/333?text=Tint" alt="Work 3"></div>
-                <div class="gallery-item"><img src="https://placehold.co/400x300/eee/333?text=Interior" alt="Work 4"></div>
+        <div class="container-fluid" style="padding: 0;"> <div class="container">
+                <h2 class="section-title" data-title="GALLERY">Recent Work</h2>
             </div>
+            
+            <div class="marquee-container">
+                <div class="marquee-track">
+                    <div class="gallery-item"><img src="https://placehold.co/400x300/eee/333?text=Supercar" alt="Work 1"></div>
+                    <div class="gallery-item"><img src="https://placehold.co/400x300/eee/333?text=Ceramic" alt="Work 2"></div>
+                    <div class="gallery-item"><img src="https://placehold.co/400x300/eee/333?text=Tint" alt="Work 3"></div>
+                    <div class="gallery-item"><img src="https://placehold.co/400x300/eee/333?text=Interior" alt="Work 4"></div>
+
+                    <div class="gallery-item"><img src="https://placehold.co/400x300/eee/333?text=Supercar" alt="Work 1"></div>
+                    <div class="gallery-item"><img src="https://placehold.co/400x300/eee/333?text=Ceramic" alt="Work 2"></div>
+                    <div class="gallery-item"><img src="https://placehold.co/400x300/eee/333?text=Tint" alt="Work 3"></div>
+                    <div class="gallery-item"><img src="https://placehold.co/400x300/eee/333?text=Interior" alt="Work 4"></div>
+                </div>
+            </div>
+
             <div class="text-center" style="margin-top: 50px;">
                 <a href="gallery.html" class="btn">View Gallery</a>
+            </div>
+        </div>
+    </section>
+    
+    <section class="section-padding" style="background-color: var(--bg-light); padding: 40px 0;">
+        <div class="container">
+            <h2 class="section-title" data-title="FEEDBACK" style="margin-bottom: 30px;">Client Experiences</h2>
+            
+            <div class="grid-3">
+                <div class="card">
+                    <div class="card-body text-center" style="padding: 20px;">
+                        <div style="color: #ffc107; margin-bottom: 10px; font-size: 1rem;">
+                            <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
+                        </div>
+                        <p style="font-style: italic; margin-bottom: 15px; font-size: 0.9rem;">"My car looks brand new again. The ceramic coating is worth every peso."</p>
+                        <h4 style="margin-bottom: 0; color: var(--primary); font-size: 1.1rem;">James T.</h4>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="card-body text-center" style="padding: 20px;">
+                        <div style="color: #ffc107; margin-bottom: 10px; font-size: 1rem;">
+                            <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
+                        </div>
+                        <p style="font-style: italic; margin-bottom: 15px; font-size: 0.9rem;">"Great service and friendly staff. They really know how to take care of luxury cars."</p>
+                        <h4 style="margin-bottom: 0; color: var(--primary); font-size: 1.1rem;">Carla M.</h4>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="card-body text-center" style="padding: 20px;">
+                        <div style="color: #ffc107; margin-bottom: 10px; font-size: 1rem;">
+                            <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star-half-alt"></i>
+                        </div>
+                        <p style="font-style: italic; margin-bottom: 15px; font-size: 0.9rem;">"Highly recommended for PPF installation. The finish is flawless."</p>
+                        <h4 style="margin-bottom: 0; color: var(--primary); font-size: 1.1rem;">Ryan D.</h4>
+                    </div>
+                </div>
             </div>
         </div>
     </section>
@@ -149,7 +181,6 @@
         <div class="container text-center">
             <h2 class="section-title" data-title="PARTNERS">Partnered Shops</h2>
             <p style="color: var(--text-light); margin-bottom: 30px;">Trusted by leading automotive experts across the region.</p>
-            
             <div class="partners-grid">
                 <div class="partner-logo"><img src="https://placehold.co/150x80/ccc/fff?text=Logo+1" alt="Partner 1"></div>
                 <div class="partner-logo"><img src="https://placehold.co/150x80/ccc/fff?text=Logo+2" alt="Partner 2"></div>
@@ -160,42 +191,15 @@
         </div>
     </section>
 
-    <section class="section-padding" style="background-color: #f9f9f9;">
-        <div class="container text-center">
-            <h2 class="section-title" data-title="CONTACT">Get In Touch</h2>
-            <p style="margin-bottom: 30px; color: var(--text-light);">Ready to upgrade your ride? Visit us or send an inquiry today.</p>
-            <a href="contact.html" class="btn">Contact Us</a>
+    <section class="section-padding text-center cta-section">
+        <div class="container">
+            <h2 style="margin-bottom: 20px;">Get In Touch</h2>
+            <p style="margin-bottom: 30px; opacity: 0.9;">Ready to upgrade your ride? Visit us or send an inquiry today.</p>
+            <a href="contact.html" class="btn btn-cta">Contact Us</a>
         </div>
     </section>
 
-    <footer>
-        <div class="container">
-            <div class="footer-grid">
-                <div class="footer-col">
-                    <div class="logo">COSMO<span>POL</span></div>
-                    <p style="margin-top: 15px;">Superior in Every Way.</p>
-                </div>
-                <div class="footer-col">
-                    <h4>Location</h4>
-                    <p>123 Auto Avenue,<br>Metro Manila, Philippines</p>
-                </div>
-                <div class="footer-col">
-                    <h4>Contact</h4>
-                    <p>+63 917 123 4567</p>
-                    <p>info@cosmopol.ph</p>
-                </div>
-                <div class="footer-col">
-                    <h4>Hours</h4>
-                    <p>Mon - Sat: 9:00 AM - 6:00 PM</p>
-                    <p>Sun: Closed</p>
-                </div>
-            </div>
-            <div class="footer-bottom text-center">
-                <p>&copy; 2015-2025 COSMOPOL. All Rights Reserved.</p>
-            </div>
-        </div>
-    </footer>
-
+    <div id="footer-placeholder"></div>
     <script src="script.js"></script>
 </body>
 </html>

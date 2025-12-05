@@ -3,222 +3,156 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Services | COSMOPOL</title>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@600;700;800&family=Roboto:wght@300;400;500&display=swap" rel="stylesheet">
+    <meta name="description" content="COSMOPOL Automotive Services: PPF, Window Tinting, Ceramic Coating, and Detailing in Metro Manila.">
+    <title>Premium Services | COSMOPOL</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&family=Roboto:wght@300;400;500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="stylesheet" href="style.css">
-    <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
-    
-    <style>
-        /* Parallax Page Header */
-        .page-header {
-            height: 60vh;
-            background: linear-gradient(rgba(0,0,50,0.7), rgba(0,0,50,0.7)), url('https://placehold.co/1920x600/000040/FFF?text=Our+Services');
-            background-size: cover;
-            background-position: center;
-            background-attachment: fixed; /* Parallax effect */
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            text-align: center;
-            color: #fff;
-            margin-bottom: 50px;
-            clip-path: polygon(0 0, 100% 0, 100% 85%, 0 100%); /* Slanted Bottom */
-        }
-        
-        .page-header h1 {
-            font-size: 4rem;
-            color: #fff;
-            text-shadow: 0 5px 15px rgba(0,0,0,0.3);
-            margin-bottom: 10px;
-        }
-
-        /* Process/Workflow Section */
-        .process-steps {
-            display: flex;
-            justify-content: space-between;
-            flex-wrap: wrap;
-            gap: 30px;
-            margin-top: 50px;
-            position: relative;
-        }
-        
-        /* The connecting line */
-        .process-steps::before {
-            content: '';
-            position: absolute;
-            top: 40px;
-            left: 50px;
-            right: 50px;
-            height: 2px;
-            background: #e0e0e0;
-            z-index: -1;
-        }
-
-        .step-item {
-            flex: 1;
-            min-width: 200px;
-            text-align: center;
-            background: #fff; /* Masks the line behind text */
-            padding: 0 10px;
-        }
-
-        .step-icon {
-            width: 80px;
-            height: 80px;
-            background: var(--highlight);
-            color: #fff;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            margin: 0 auto 20px;
-            font-size: 1.5rem;
-            box-shadow: 0 10px 20px rgba(0,0,128,0.2);
-            transition: all 0.3s ease;
-            border: 3px solid #fff;
-        }
-
-        .step-item:hover .step-icon {
-            transform: scale(1.1) rotate(10deg);
-            background: var(--accent);
-        }
-
-        @media (max-width: 768px) {
-            .process-steps::before { display: none; } /* Hide line on mobile */
-            .page-header { clip-path: none; height: 50vh; }
-            .page-header h1 { font-size: 2.5rem; }
-        }
-    </style>
 </head>
 <body>
 
-    <header>
-        <div class="container nav-container">
-            <div class="logo">COSMO<span>POL</span></div>
-            <div class="menu-toggle">☰</div>
-            <nav>
-                <ul class="nav-links">
-                    <li><a href="index.html">Home</a></li>
-                    <li><a href="about.html">About Us</a></li>
-                    <li><a href="products.html">Product Lines</a></li>
-                    <li><a href="services.html" class="active">Services</a></li>
-                    <li><a href="gallery.html">Gallery</a></li>
-                    <li><a href="contact.html">Contact Us</a></li>
-                </ul>
-            </nav>
-        </div>
-    </header>
+    <div id="header-placeholder"></div>
 
     <section class="page-header">
         <div class="container">
-            <h1>World Class Services</h1>
-            <p style="font-size: 1.2rem; letter-spacing: 2px; color: #ddd;">Restoring Perfection, One Detail at a Time.</p>
+            <h1>World Class Care</h1>
+            <p style="font-size: 1.2rem; opacity: 0.9; max-width: 600px; margin: 0 auto;">Precision engineering meets aesthetic perfection. Explore our full range of automotive protection and styling services.</p>
         </div>
     </section>
 
     <section class="section-padding">
         <div class="container">
-            <h2 class="section-title" data-title="EXPERTISE">What We Do</h2>
+            <div class="text-center" style="margin-bottom: 50px;">
+                <h2 style="font-size: 2rem; color: var(--primary);">What We Do</h2>
+                <div style="width: 60px; height: 4px; background: var(--highlight); margin: 15px auto;"></div>
+            </div>
+
             <div class="grid-3">
                 <div class="card">
-                    <img src="https://placehold.co/400x250/000080/FFF?text=PPF+Install" alt="PPF">
-                    <h3>PPF Installation</h3>
-                    <p>Professional installation of CosmoShield Paint Protection Film. We wrap edges seamlessly for an invisible finish that defends against road debris.</p>
+                    <img src="https://placehold.co/400x250/000080/FFF?text=PPF+Defense" alt="PPF Installation">
+                    <div class="card-body">
+                        <h3>PPF Installation</h3>
+                        <p>Self-healing CosmoShield Paint Protection Film. We wrap edges seamlessly for an invisible armor against stone chips and scratches.</p>
+                        <a href="contact.html?service=ppf" class="btn btn-outline">Get Quote</a>
+                    </div>
                 </div>
                 <div class="card">
-                    <img src="https://placehold.co/400x250/000080/FFF?text=Window+Tint" alt="Tint">
-                    <h3>Window Tinting</h3>
-                    <p>Installation of CosmoShade films. Available in various darkness levels (VLT) to reduce heat, block UV rays, and ensure privacy.</p>
+                    <img src="https://placehold.co/400x250/000080/FFF?text=Ceramic+9H" alt="Ceramic Coating">
+                    <div class="card-body">
+                        <h3>Ceramic Coating</h3>
+                        <p>Multi-stage paint correction followed by CosmoCoat 9H. Achieve a hydrophobic, mirror-like gloss that repels dirt and water.</p>
+                        <a href="contact.html?service=ceramic" class="btn btn-outline">Get Quote</a>
+                    </div>
                 </div>
                 <div class="card">
-                    <img src="https://placehold.co/400x250/000080/FFF?text=Ceramic+Coating" alt="Coating">
-                    <h3>Ceramic Coating</h3>
-                    <p>Multi-stage paint correction followed by application of CosmoCoat 9H for a hydrophobic, mirror-like shine that lasts for years.</p>
+                    <img src="https://placehold.co/400x250/000080/FFF?text=Thermal+Tint" alt="Window Tint">
+                    <div class="card-body">
+                        <h3>Nano-Ceramic Tint</h3>
+                        <p>Advanced heat rejection with CosmoShade films. Block 99% of UV rays and keep your cabin cool without compromising visibility.</p>
+                        <a href="contact.html?service=tint" class="btn btn-outline">Get Quote</a>
+                    </div>
                 </div>
                 <div class="card">
-                    <img src="https://placehold.co/400x250/000080/FFF?text=Car+Wraps" alt="Wraps">
-                    <h3>Car Wraps</h3>
-                    <p>Change the color of your vehicle completely with our premium vinyl wraps. Available in Matte, Satin, Gloss, or Color-Shift finishes.</p>
+                    <img src="https://placehold.co/400x250/000080/FFF?text=Vinyl+Wrap" alt="Car Wraps">
+                    <div class="card-body">
+                        <h3>Color Change Wraps</h3>
+                        <p>Transform your vehicle's look with premium vinyl. Available in Matte, Satin, Gloss, or Color-Shift finishes.</p>
+                        <a href="contact.html?service=wrap" class="btn btn-outline">Get Quote</a>
+                    </div>
                 </div>
                 <div class="card">
-                    <img src="https://placehold.co/400x250/000080/FFF?text=Interior" alt="Interior">
-                    <h3>Interior Detailing</h3>
-                    <p>Deep cleaning, steam sanitation, and leather protection. We restore the fresh factory feel of your vehicle's cabin.</p>
+                    <img src="https://placehold.co/400x250/000080/FFF?text=Deep+Clean" alt="Interior Detailing">
+                    <div class="card-body">
+                        <h3>Interior Restoration</h3>
+                        <p>Steam sanitation, leather conditioning, and odor removal. We restore the factory-fresh feel of your cabin.</p>
+                        <a href="contact.html?service=interior" class="btn btn-outline">Get Quote</a>
+                    </div>
                 </div>
                 <div class="card">
-                    <img src="https://placehold.co/400x250/000080/FFF?text=Fleet" alt="Fleet">
-                    <h3>Fleet Services</h3>
-                    <p>Customized maintenance packages for car dealers and corporate partners managing multiple vehicles. Bulk pricing available.</p>
+                    <img src="https://placehold.co/400x250/000080/FFF?text=Maintenance" alt="Fleet Services">
+                    <div class="card-body">
+                        <h3>Fleet & Maintenance</h3>
+                        <p>Recurring maintenance plans for corporate fleets or enthusiasts who want their car show-ready every weekend.</p>
+                        <a href="contact.html?service=fleet" class="btn btn-outline">Get Quote</a>
+                    </div>
                 </div>
             </div>
         </div>
     </section>
 
-    <section class="section-padding" style="background-color: #f9f9f9;">
+    <section class="section-padding" style="background-color: var(--bg-light);">
         <div class="container text-center">
-            <h2 class="section-title" data-title="WORKFLOW">Our Process</h2>
-            <p style="margin-bottom: 20px; color: #666;">How we ensure excellence in every job.</p>
+            <h2 style="font-size: 2rem; color: var(--primary);">The COSMOPOL Standard</h2>
+            <p style="margin-bottom: 20px; color: #666;">Our workflow ensures perfection, every time.</p>
             
             <div class="process-steps">
                 <div class="step-item">
-                    <div class="step-icon"><i class="fas fa-comments"></i></div>
-                    <h4>1. Consultation</h4>
-                    <p style="font-size: 0.9rem; color: #777;">We assess your vehicle and discuss your specific goals and budget.</p>
+                    <div class="step-icon"><i class="fas fa-clipboard-list"></i></div>
+                    <h4>1. Assessment</h4>
+                    <p style="font-size: 0.9rem; color: #777;">Full paint depth analysis and client goal consultation.</p>
                 </div>
                 <div class="step-item">
-                    <div class="step-icon"><i class="fas fa-tools"></i></div>
-                    <h4>2. Preparation</h4>
-                    <p style="font-size: 0.9rem; color: #777;">Decontamination, washing, and surface prep to ensure perfect adhesion.</p>
+                    <div class="step-icon"><i class="fas fa-soap"></i></div>
+                    <h4>2. Decontamination</h4>
+                    <p style="font-size: 0.9rem; color: #777;">Chemical and mechanical decontamination (Clay bar).</p>
                 </div>
                 <div class="step-item">
-                    <div class="step-icon"><i class="fas fa-spray-can"></i></div>
+                    <div class="step-icon"><i class="fas fa-layer-group"></i></div>
                     <h4>3. Application</h4>
-                    <p style="font-size: 0.9rem; color: #777;">Our certified technicians apply coatings, films, or tints with precision.</p>
+                    <p style="font-size: 0.9rem; color: #777;">Dust-free installation of films or coatings.</p>
                 </div>
                 <div class="step-item">
-                    <div class="step-icon"><i class="fas fa-check-circle"></i></div>
-                    <h4>4. Quality Check</h4>
-                    <p style="font-size: 0.9rem; color: #777;">Final inspection under specialized lighting before vehicle release.</p>
+                    <div class="step-icon"><i class="fas fa-check-double"></i></div>
+                    <h4>4. Quality Control</h4>
+                    <p style="font-size: 0.9rem; color: #777;">Final inspection under 5000K specialized lighting.</p>
                 </div>
             </div>
         </div>
     </section>
 
-    <section class="section-padding text-center">
-        <div class="container">
-            <h2 style="color: var(--highlight); margin-bottom: 20px;">Ready to Transform Your Vehicle?</h2>
-            <a href="contact.html" class="btn btn-primary">Book an Appointment</a>
+    <section class="section-padding faq-section">
+        <div class="container" style="max-width: 800px;">
+            <div class="text-center" style="margin-bottom: 40px;">
+                <h2>Frequently Asked Questions</h2>
+            </div>
+            
+            <div class="faq-item">
+                <details>
+                    <summary>How long does Ceramic Coating last?</summary>
+                    <div class="faq-answer">
+                        Depending on the package you choose (CosmoCoat 9H), our coatings last between 2 to 5 years with proper maintenance. We provide a care guide upon completion.
+                    </div>
+                </details>
+            </div>
+            <div class="faq-item">
+                <details>
+                    <summary>Can you install PPF over vinyl wraps?</summary>
+                    <div class="faq-answer">
+                        Yes! Installing PPF over a vinyl wrap is a great way to protect the finish and extend the life of the wrap, specifically for satin or matte finishes.
+                    </div>
+                </details>
+            </div>
+            <div class="faq-item">
+                <details>
+                    <summary>Do you offer a warranty?</summary>
+                    <div class="faq-answer">
+                        Absolutely. All our PPF installations come with a 5-10 year warranty against yellowing and cracking. Our window tints come with a lifetime warranty against bubbling.
+                    </div>
+                </details>
+            </div>
         </div>
     </section>
 
-    <footer>
+    <section class="section-padding text-center cta-section">
         <div class="container">
-            <div class="footer-grid">
-                <div class="footer-col">
-                    <div class="logo">COSMO<span>POL</span></div>
-                    <p style="margin-top: 15px;">Superior in Every Way.</p>
-                </div>
-                <div class="footer-col">
-                    <h4>Location</h4>
-                    <p>123 Auto Avenue,<br>Metro Manila, Philippines</p>
-                </div>
-                <div class="footer-col">
-                    <h4>Contact</h4>
-                    <p>+63 917 123 4567</p>
-                    <p>info@cosmopol.ph</p>
-                </div>
-                <div class="footer-col">
-                    <h4>Hours</h4>
-                    <p>Mon - Sat: 9:00 AM - 6:00 PM</p>
-                    <p>Sun: Closed</p>
-                </div>
-            </div>
-            <div class="footer-bottom text-center">
-                <p>&copy; 2015-2025 COSMOPOL. All Rights Reserved.</p>
-            </div>
+            <h2 style="margin-bottom: 20px;">Ready to Transform Your Vehicle?</h2>
+            <p style="margin-bottom: 30px; opacity: 0.9;">Book a consultation today and see why we are Manila's top choice.</p>
+            <a href="contact.html" class="btn btn-cta">Book Appointment</a>
         </div>
-    </footer>
+    </section>
 
+    <div id="footer-placeholder"></div>
     <script src="script.js"></script>
+
 </body>
 </html>

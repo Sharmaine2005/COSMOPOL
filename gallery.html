@@ -5,37 +5,26 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Gallery | COSMOPOL</title>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@600;700&family=Roboto:wght@300;400;500&display=swap" rel="stylesheet">
-    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <header>
-        <div class="container nav-container">
-            <div class="logo">COSMO<span>POL</span></div>
-            <div class="menu-toggle">☰</div>
-            <nav>
-                <ul class="nav-links">
-                    <li><a href="index.html">Home</a></li>
-                    <li><a href="about.html">About Us</a></li>
-                    <li><a href="products.html">Product Lines</a></li>
-                    <li><a href="services.html">Services</a></li>
-                    <li><a href="gallery.html" class="active">Gallery</a></li>
-                    <li><a href="contact.html">Contact Us</a></li>
-                </ul>
-            </nav>
-        </div>
-    </header>
+    <div id="header-placeholder"></div>
 
-    <div style="height: 100px;"></div>
+    <section class="page-header">
+        <div class="container">
+            <h1>The Art of Detail</h1>
+            <p style="font-size: 1.2rem; opacity: 0.9; max-width: 600px; margin: 0 auto;">Browse our portfolio of transformed vehicles, precision installations, and our state-of-the-art facility.</p>
+        </div>
+    </section>
 
     <section class="section-padding">
         <div class="container">
-            <h1 class="section-title" data-title="GALLERY">Our Work</h1>
+            <h2 class="section-title" data-title="GALLERY">Our Work</h2>
             <p class="text-center" style="margin-bottom: 40px;">Explore our finest work and facility.</p>
         
             <div class="gallery-wrapper">
                 <button class="arrow left hidden" id="prevBtn">&lt;</button>        
-                
                 <div class="gallery-scroll" id="galleryTrack">
                     <div class="gallery-item"><img src="https://placehold.co/400x300/222/FFF?text=Project+1" alt="Gallery 1"></div>
                     <div class="gallery-item"><img src="https://placehold.co/400x300/222/FFF?text=Project+2" alt="Gallery 2"></div>
@@ -46,18 +35,61 @@
                     <div class="gallery-item"><img src="https://placehold.co/400x300/222/FFF?text=Before+After" alt="Gallery 7"></div>
                     <div class="gallery-item"><img src="https://placehold.co/400x300/222/FFF?text=Close+Up" alt="Gallery 8"></div>
                 </div>
-
                 <button class="arrow right" id="nextBtn">&gt;</button>
             </div>
         </div>
     </section>
 
-    <footer>
-        <div class="container footer-bottom text-center">
-            <p>&copy; 2025 COSMOPOL. All Rights Reserved.</p>
-        </div>
-    </footer>
+    <section class="section-padding" style="background-color: var(--bg-light);">
+        <div class="container">
+            <h2 class="section-title" data-title="FEEDBACK">Client Experiences</h2>
+            
+            <div class="grid-3">
+                <div class="card">
+                    <div class="card-body text-center">
+                        <div style="color: #ffc107; margin-bottom: 15px; font-size: 1.2rem;">
+                            <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
+                        </div>
+                        <p style="font-style: italic; margin-bottom: 20px;">"Absolutely stunning results! The PPF installation on my Mustang is invisible, and the shine is incredible. Highly recommended!"</p>
+                        <h4 style="margin-bottom: 5px; color: var(--primary);">Mark S.</h4>
+                        <span style="font-size: 0.85rem; color: var(--text-light);">Ford Mustang GT</span>
+                    </div>
+                </div>
 
+                <div class="card">
+                    <div class="card-body text-center">
+                        <div style="color: #ffc107; margin-bottom: 15px; font-size: 1.2rem;">
+                            <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
+                        </div>
+                        <p style="font-style: italic; margin-bottom: 20px;">"Professional service from start to finish. They restored my SUV's interior to showroom condition. Great attention to detail."</p>
+                        <h4 style="margin-bottom: 5px; color: var(--primary);">Sarah L.</h4>
+                        <span style="font-size: 0.85rem; color: var(--text-light);">Toyota Fortuner</span>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="card-body text-center">
+                        <div style="color: #ffc107; margin-bottom: 15px; font-size: 1.2rem;">
+                            <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star-half-alt"></i>
+                        </div>
+                        <p style="font-style: italic; margin-bottom: 20px;">"The ceramic tint really makes a difference in this heat. The team was fast and the quality is excellent."</p>
+                        <h4 style="margin-bottom: 5px; color: var(--primary);">Miguel R.</h4>
+                        <span style="font-size: 0.85rem; color: var(--text-light);">Honda Civic Type R</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="section-padding text-center cta-section">
+        <div class="container">
+            <h2 style="margin-bottom: 20px;">Ready to Transform Your Vehicle?</h2>
+            <p style="margin-bottom: 30px; opacity: 0.9;">Book a consultation today and see why we are Manila's top choice.</p>
+            <a href="contact.html" class="btn btn-cta">Book Appointment</a>
+        </div>
+    </section>
+
+    <div id="footer-placeholder"></div>
     <script src="script.js"></script>
 </body>
-</html>s
+</html>

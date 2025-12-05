@@ -1,24 +1,103 @@
-/* --- VARIABLES & RESET --- */
+html {
+    scroll-behavior: smooth;
+}
+
+/* ==========================================================================
+   1. GLOBAL STYLES (Variables, Reset, Typography, Buttons, Header, Footer)
+   ========================================================================== */
+
+/* --- Variables & Reset --- */
 :root {
-    --bg-color: #FFFFFF;
+    /* Colors - Light Mode (Default) */
+    --bg-color: #FFFFFF;     /* Pure White */
+    
+    /* UPDATED: Darker Gray for better contrast against white */
+    --bg-light: #F0F2F5;      
+    
+    --card-bg: #FFFFFF;
+    --header-bg: rgba(255, 255, 255, 0.95);
+    
     --text-color: #333333;
     --text-light: #666666;
     
-    --highlight: #000080; /* Navy Blue - Primary Branding */
-    --accent: #D32F2F;    /* Red - CTA & Effects */
+    --primary: #000040;      /* Deep Navy */
+    --primary-light: #000060; 
+    --highlight: #0056b3;    /* Bright Blue */
+    --accent: #D32F2F;       /* Red */
+
+    /* New Variable for Footer */
+    --footer-bg: #000040;    /* Navy for Light Mode */
     
+    /* Typography */
     --font-head: 'Poppins', sans-serif;
     --font-body: 'Roboto', sans-serif;
+    
+    /* Effects */
     --transition: all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
     --shadow-card: 0 10px 30px rgba(0,0,0,0.05);
     --shadow-hover: 0 20px 40px rgba(0,0,0,0.1);
 }
 
-* {
+/* --- Dark Mode Overrides (USER CUSTOM PALETTE) --- */
+body.dark-mode {
+    /* 1. Backgrounds */
+    --secondary: #0A0A0A;    /* Jet Black */
+    --bg-color: var(--secondary);
+    
+    /* UPDATED: Lighter Charcoal for clear contrast against Jet Black */
+    --bg-light: #1C1C1C;     
+    
+    --card-bg: #252525;      /* Dark Gray for visibility */
+    --header-bg: rgba(10, 10, 10, 0.95);
+    --footer-bg: var(--secondary); /* Footer is now Jet Black */
+
+    /* 2. Text Colors */
+    --primary: #C0C0C0;      /* Metallic Silver (Headings/Text) */
+    --text-color: #C0C0C0;   /* Base text Silver */
+    --text-light: #A0A0A0;   /* Dimmed Silver */
+
+    /* 3. Accents & Highlights */
+    --accent: #003366;       /* Deep Blue (Buttons/Borders) */
+    --highlight: #00FFFF;    /* Electric Cyan (Links/Active) */
+    
+    /* 4. Shadows */
+    --shadow-card: 0 10px 30px rgba(0,0,0,0.7);
+    --shadow-hover: 0 20px 40px rgba(0,0,0,0.9);
+}
+
+/* Fix for sections with inline light backgrounds */
+body.dark-mode section[style*="#f9f9f9"],
+body.dark-mode section[style*="var(--bg-light)"] {
+    background-color: var(--bg-light) !important;
+}
+
+/* Fix for Logo visibility in Dark Mode */
+body.dark-mode .logo { color: #fff; }
+
+/* Dark Mode Toggle Button */
+.theme-toggle-btn {
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-size: 1.2rem;
+    color: var(--primary);
+    
+    /* Fixed width prevents menu jump */
+    width: 40px; 
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    
     margin: 0;
     padding: 0;
-    box-sizing: border-box;
+    transition: var(--transition);
 }
+
+body.dark-mode .theme-toggle-btn { color: #feeb7a; /* Yellow for Sun */ }
+.theme-toggle-btn:hover { transform: rotate(15deg) scale(1.1); }
+
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
 
 body {
     background-color: var(--bg-color);
@@ -26,653 +105,392 @@ body {
     font-family: var(--font-body);
     line-height: 1.6;
     overflow-x: hidden;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    transition: background-color 0.4s ease, color 0.4s ease;
 }
 
 h1, h2, h3, h4, h5, h6 {
     font-family: var(--font-head);
-    color: var(--highlight);
+    color: var(--highlight); /* Changed to Highlight (Cyan in Dark) */
     text-transform: uppercase;
     letter-spacing: 1px;
     font-weight: 700;
 }
 
+/* Specific override for Logo text to use Primary (Silver/Navy) */
+.logo { font-size: 1.8rem; font-weight: 800; color: var(--primary); font-family: var(--font-head); letter-spacing: 2px; }
+.logo span { color: var(--highlight); }
+
 a { text-decoration: none; color: inherit; transition: var(--transition); }
 ul { list-style: none; }
 img { max-width: 100%; display: block; }
 
-/* --- UTILITIES --- */
-.container {
-    max-width: 1200px;
-    margin: 0 auto;
-    padding: 0 20px;
-}
-
-.section-padding { padding: 100px 0; }
+/* --- Utilities --- */
+.container { max-width: 1200px; margin: 0 auto; padding: 0 20px; }
+.section-padding { padding: 80px 0; }
 .text-center { text-align: center; }
-.text-accent { color: var(--accent); }
+.text-highlight { color: var(--highlight); }
 
-/* --- CREATIVE BUTTONS (Underline Sparkle) --- */
-.btn {
-    display: inline-block;
-    padding: 10px 20px;
-    font-family: var(--font-head);
-    text-transform: uppercase;
-    font-weight: 600;
-    color: var(--highlight);
-    background: transparent;
-    cursor: pointer;
-    position: relative;
-    border: none; /* Removed Box */
-    overflow: hidden; /* Contains the sparkle */
-}
-
-/* The Red Line */
-.btn::after {
-    content: '';
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    width: 100%;
-    height: 3px;
-    background-color: var(--accent);
-    transition: var(--transition);
-}
-
-/* The Sparkle/Fade Effect */
-.btn::before {
-    content: '';
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    width: 100%;
-    height: 0%;
-    background: linear-gradient(to top, rgba(211, 47, 47, 0.2), transparent);
-    z-index: -1;
-    transition: var(--transition);
-}
-
-.btn:hover {
-    color: var(--accent);
-    letter-spacing: 2px; /* Slight expansion for creative touch */
-}
-
-.btn:hover::before {
-    height: 100%; /* Rising mist effect */
-}
-
-.btn:hover::after {
-    box-shadow: 0 0 15px var(--accent); /* Glowing line */
-}
-
-/* Filled Button Variant for high contrast areas */
-.btn-primary {
-    color: var(--highlight);
-}
-
-/* --- HEADER --- */
-header {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    background: rgba(255, 255, 255, 0.95);
-    backdrop-filter: blur(10px);
-    box-shadow: 0 2px 20px rgba(0,0,0,0.05);
-    z-index: 1000;
-    padding: 15px 0;
-}
-
-.nav-container {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-}
-
-.logo {
-    font-size: 1.8rem;
-    font-weight: 800;
-    color: var(--highlight);
-    font-family: var(--font-head);
-    letter-spacing: 2px;
-}
-
-.logo span { color: var(--accent); }
-
-.nav-links { display: flex; gap: 35px; }
-
-.nav-links a {
-    font-size: 0.9rem;
-    font-weight: 600;
-    color: var(--highlight);
-    text-transform: uppercase;
-    position: relative;
-    padding-bottom: 5px;
-}
-
-/* THE ANIMATED SHAPE (Dot -> Line) */
-.nav-links a::after {
-    content: '';
-    position: absolute;
-    left: 50%;
-    bottom: -5px; /* Position below text */
-    transform: translateX(-50%); /* Keeps it centered */
-    
-    /* Start State (Invisible Dot) */
-    width: 0; 
-    height: 6px; 
-    background-color: var(--accent);
-    border-radius: 100px; /* Fully rounded edges */
-    opacity: 0;
-    
-    /* The Magic: Smoothly animate width, height, and roundness */
-    transition: width 0.4s cubic-bezier(0.25, 0.8, 0.25, 1), 
-                height 0.4s cubic-bezier(0.25, 0.8, 0.25, 1), 
-                border-radius 0.4s ease, 
-                opacity 0.3s ease;
-}
-
-/* 1. HOVER STATE: The Dot */
-.nav-links a:hover::after {
-    width: 6px;       /* Small circle width */
-    height: 6px;      /* Small circle height */
-    opacity: 1;
-    border-radius: 100px; /* Stays a circle */
-}
-
-/* 2. ACTIVE STATE: The Underline */
-.nav-links a.active::after {
-    width: 100%;      /* Stretches to full text width */
-    height: 3px;      /* Shrinks in height to look like a line */
-    opacity: 1;
-    border-radius: 0; /* Removes roundness for sharp line edges */
-}
-
-/* Keep the line style if hovering over an active link */
-.nav-links a.active:hover::after {
-    width: 100%;
-    height: 3px;
-    border-radius: 0;
-}
-
-/* Mobile Menu Toggle */
-.menu-toggle { display: none; cursor: pointer; color: var(--highlight); font-size: 1.5rem; }
-
-/* --- HERO SLIDER SECTION --- */
-.hero-slider-section {
-    position: relative;
-    height: 100vh;
-    width: 100%;
-    overflow: hidden;
-    display: flex;
-    align-items: center;
-    /* Removed the slanted clip-path from previous version as it cuts off the slider */
-    margin-bottom: 0; 
-    background-color: #000; /* Fallback color */
-}
-
-/* The Container for Background Images */
-.slider-container {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    z-index: 1;
-}
-
-/* Individual Slide Backgrounds */
-.slide-bg {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-size: cover;
-    background-position: center;
-    opacity: 0; /* Hidden by default */
-    /* Smooth crossfade transition for changing slides */
-    transition: opacity 0.8s ease-in-out, transform 0.1s ease-out; 
-    will-change: transform, opacity;
-}
-
-/* The Active Slide */
-.slide-bg.active {
-    opacity: 1;
-    z-index: 2;
-}
-
-/* Dark Overlay for Readability */
-.hero-overlay {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: rgba(0, 0, 30, 0.5); /* Slight Navy tint overlay */
-    z-index: 3;
-    pointer-events: none; /* Let clicks pass through */
-}
-
-/* The Text Content sitting on top */
-/* --- CSS FIX FOR BUTTON CLICKING --- */
-
-/* 1. Allow mouse to pass through the text container */
-.hero-content-overlay {
-    position: relative;
-    z-index: 4;
-    text-align: center;
-    color: #fff;
-    pointer-events: none; /* KEY FIX: Let clicks pass through empty space */
-    padding-top: 120px;
-}
-
-/* 2. Force the button to accept clicks */
-.hero-content-overlay .btn {
-    pointer-events: auto !important; /* KEY FIX: Re-enable clicking */
-    cursor: pointer;
-    color: #fff;
-    margin-top: 80px; 
-    position: relative;
-    z-index: 100; /* Ensure it sits on top of everything */
-}
-
-.hero-content-overlay h1 {
-    font-size: 4.5rem;
-    margin-bottom: 15px;
-    color: #fff;
-    text-shadow: 0 5px 15px rgba(0,0,0,0.5);
-}
-
-.hero-content-overlay p {
-    font-size: 1.5rem;
-    margin-bottom: 40px;
-    color: #ddd;
-    letter-spacing: 3px;
-    font-weight: 300;
-}
-
-/* Re-enable pointer events for the button */
-/* Find this existing rule in style.css and update it */
-.hero-content-overlay .btn {
-    pointer-events: auto; 
-    color: #fff;
-    
-    /* ADD THIS LINE to move the button down */
-    margin-top: 80px; /* You can increase this number (e.g., 80px) to move it lower */
-}
-.hero-content-overlay .btn:hover { color: #fff; }
-
-
-/* Slider Arrows */
-.slider-arrow {
-    position: absolute;
-    top: 50%;
-    transform: translateY(-50%);
-    background: rgba(0, 0, 128, 0.3); /* Transparent Navy */
-    color: #fff;
-    border: none;
-    width: 50px;
-    height: 50px;
-    border-radius: 50%;
-    font-size: 1.2rem;
-    cursor: pointer;
-    z-index: 10;
-    transition: var(--transition);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    backdrop-filter: blur(5px);
-}
-
-.slider-arrow:hover {
-    background: var(--accent); /* Red on hover */
-    box-shadow: 0 0 15px var(--accent);
-}
-
-.prev-slide { left: 30px; }
-.next-slide { right: 30px; }
-
-/* Responsive Hero Adjustments */
-@media (max-width: 768px) {
-    .hero-content-overlay h1 { font-size: 2.8rem; }
-    .hero-content-overlay p { font-size: 1.1rem; letter-spacing: 1px; }
-    .slider-arrow { width: 40px; height: 40px; font-size: 1rem; }
-    .prev-slide { left: 10px; }
-    .next-slide { right: 10px; }
-}
-
-/* --- SECTIONS GENERAL --- */
-.section-title {
-    font-size: 2.8rem;
-    margin-bottom: 60px;
-    text-align: center;
-    position: relative;
-    /* Removed underline as requested */
-}
-
-/* Creative Touch: Background Watermark for titles */
+/* --- Global Components (Cards & Grids) --- */
+.section-title { font-size: 2.8rem; margin-bottom: 60px; text-align: center; position: relative; }
 .section-title::before {
-    content: attr(data-title); /* Uses data-attribute for text */
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    font-size: 5rem;
-    opacity: 0.04;
-    color: var(--highlight);
-    white-space: nowrap;
-    z-index: -1;
+    content: attr(data-title); position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);
+    font-size: 5rem; opacity: 0.04; color: var(--highlight); white-space: nowrap; z-index: -1;
 }
 
-/* --- CARDS (Products/Services) --- */
-.grid-3 {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-    gap: 40px;
-}
+.grid-3 { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 40px; margin-top: 40px;}
 
 .card {
-    background: #fff;
-    padding: 40px 30px;
-    border-radius: 12px;
-    box-shadow: var(--shadow-card);
-    transition: var(--transition);
-    position: relative;
-    overflow: hidden;
-    border-top: 3px solid transparent;
+    background: var(--card-bg);
+    border-radius: 12px; overflow: hidden;
+    box-shadow: var(--shadow-card); transition: var(--transition);
+    display: flex; flex-direction: column; border-top: 3px solid transparent; padding: 0;
 }
+/* Card Hover Border uses Accent (Deep Blue) */
+.card:hover { transform: translateY(-10px); box-shadow: var(--shadow-hover); border-top: 3px solid var(--accent); }
+.card img { width: 100%; height: 250px; object-fit: cover; }
+.card-body, .card { padding: 25px; } 
+.card img + .card-body { padding: 25px; } 
+.card h3 { color: var(--highlight); /* Cyan headlines in cards */ margin-bottom: 15px; font-size: 1.4rem; }
+.card p { font-size: 0.95rem; color: var(--text-light); margin-bottom: 20px; flex-grow: 1; }
 
-/* Creative Touch: Hover Lift & Top Border */
-.card:hover {
-    transform: translateY(-15px);
-    box-shadow: var(--shadow-hover);
-    border-top: 3px solid var(--accent);
+/* --- Buttons --- */
+.btn {
+    display: inline-block; padding: 10px 20px; font-family: var(--font-head);
+    text-transform: uppercase; font-weight: 600; color: var(--highlight);
+    background: transparent; cursor: pointer; position: relative; border: none; overflow: hidden;
 }
-
-.card h3 { margin-bottom: 15px; color: var(--highlight); font-size: 1.4rem; }
-.card p { color: var(--text-light); font-size: 0.95rem; }
-.card img { 
-    margin-bottom: 25px; 
-    width: 100%; 
-    border-radius: 8px; 
-    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+.btn::after {
+    content: ''; position: absolute; bottom: 0; left: 0; width: 100%; height: 3px;
+    background-color: var(--accent); transition: var(--transition);
 }
-
-/* --- PARTNERED SHOPS (New Section) --- */
-.partners-grid {
-    display: flex;
-    justify-content: center;
-    flex-wrap: wrap;
-    gap: 50px;
-    align-items: center;
-    margin-top: 40px;
+.btn::before {
+    content: ''; position: absolute; bottom: 0; left: 0; width: 100%; height: 0%;
+    background: linear-gradient(to top, rgba(0, 51, 102, 0.2), transparent); /* Adjusted for Blue tint */
+    z-index: -1; transition: var(--transition);
 }
+.btn:hover { color: var(--accent); letter-spacing: 2px; }
+.btn:hover::before { height: 100%; }
+.btn:hover::after { box-shadow: 0 0 15px var(--accent); }
 
-.partner-logo {
-    width: 150px;
-    height: 80px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    filter: grayscale(100%);
-    opacity: 0.6;
-    transition: var(--transition);
+.btn-primary { color: var(--highlight); border: 2px solid var(--highlight); border-radius: 4px; }
+.btn-outline { border: 2px solid var(--highlight); color: var(--highlight); margin-top: 15px; font-size: 0.85rem; padding: 8px 20px; border-radius: 4px; }
+.btn-outline:hover { background: var(--highlight); color: #fff; }
+/* Dark Mode fix for hover text on cyan button */
+body.dark-mode .btn-outline:hover { color: #000; } 
+
+/* --- Header & Navigation --- */
+header {
+    position: fixed; top: 0; left: 0; width: 100%;
+    background: var(--header-bg);
+    backdrop-filter: blur(10px);
+    box-shadow: 0 2px 20px rgba(0,0,0,0.05); z-index: 1000; padding: 15px 0;
+    transition: background-color 0.4s ease;
 }
+.nav-container { display: flex; justify-content: space-between; align-items: center; }
 
-.partner-logo img {
-    max-height: 100%;
-    width: auto;
+.nav-links { display: flex; gap: 35px; align-items: center; }
+.nav-links a { font-size: 0.9rem; font-weight: 600; color: var(--primary); text-transform: uppercase; position: relative; padding-bottom: 5px; }
+
+/* Nav Hover Animation */
+.nav-links a::after {
+    content: ''; position: absolute; left: 50%; bottom: -5px; transform: translateX(-50%);
+    width: 0; height: 6px; background-color: var(--accent); border-radius: 100px; opacity: 0;
+    transition: width 0.4s cubic-bezier(0.25, 0.8, 0.25, 1), height 0.4s, border-radius 0.4s, opacity 0.3s;
 }
+.nav-links a:hover::after { width: 6px; height: 6px; opacity: 1; border-radius: 100px; }
+.nav-links a.active { color: var(--highlight); }
+.nav-links a.active::after { width: 100%; height: 3px; opacity: 1; border-radius: 0; }
+.menu-toggle { display: none; cursor: pointer; color: var(--primary); font-size: 1.5rem; }
 
-.partner-logo:hover {
-    filter: grayscale(0%);
-    opacity: 1;
-    transform: scale(1.1);
-}
-
-
-/* Horizontal swipe gallery */
-.gallery-wrapper {
-    position: relative;
-    display: flex;
-    align-items: center;
-    padding: 20px 0; /* Space for the "pop up" shadow to not get cut off */
-}
-
-/* The Scrollable Track */
-.gallery-scroll {
-    display: flex;
-    gap: 25px; /* Replaces margin-right on items */
-    overflow-x: auto;
-    scroll-behavior: smooth;
-    padding: 30px 10px; /* Padding inside allows the shadow to show fully */
-    
-    /* Hide Scrollbar */
-    -webkit-overflow-scrolling: touch;
-    scrollbar-width: none;
-    -ms-overflow-style: none;
-}
-
-.gallery-scroll::-webkit-scrollbar {
-    display: none;
-}
-
-/* The Item Container */
-.gallery-item {
-    min-width: 300px; /* Fixed width */
-    height: 220px;
-    background: white;
-    border-radius: 12px;
-    overflow: hidden; /* Keeps image inside corners */
-    flex-shrink: 0;
-    
-    /* Animation Setup */
-    box-shadow: var(--shadow-card);
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
-    cursor: pointer;
-    position: relative;
-}
-
-.gallery-item img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    transition: transform 0.5s ease; /* Slower zoom for image */
-}
-
-/* --- THE HOVER EFFECT --- */
-.gallery-item:hover {
-    /* Pop Up Logic */
-    transform: scale(1.05) translateY(-10px);
-    box-shadow: var(--shadow-hover);
-    z-index: 2; /* Ensures it pops over neighbors */
-}
-
-/* Optional: Subtle image zoom inside the popping container */
-.gallery-item:hover img {
-    transform: scale(1.1);
-}
-
-/* --- BUTTONS --- */
-.arrow {
-    position: absolute;
-    top: 50%;
-    transform: translateY(-50%);
-    
-    /* Styling to match your theme */
-    background-color: #fff;
-    color: var(--highlight);
-    border: 1px solid #eee;
-    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
-    
-    font-size: 1.5rem;
-    font-weight: bold;
-    width: 45px;
-    height: 45px;
-    border-radius: 50%;
-    
-    cursor: pointer;
-    z-index: 10;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    transition: var(--transition);
-}
-
-.arrow:hover {
-    background-color: var(--highlight);
-    color: #fff;
-    border-color: var(--highlight);
-}
-
-.arrow.left { left: -20px; }
-.arrow.right { right: -20px; }
-
-/* This class is added by the JS to hide buttons */
-.arrow.hidden {
-    opacity: 0;
-    pointer-events: none; /* Allows clicking through the invisible button */
-}
-
-
-
-
-/* --- CONTACT FORM --- */
-.contact-wrapper {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 60px;
-}
-
-.contact-info, .contact-form { flex: 1; min-width: 300px; }
-
-.form-group { margin-bottom: 25px; position: relative; }
-
-input, textarea {
-    width: 100%;
-    padding: 15px 0;
-    background: transparent;
-    border: none;
-    border-bottom: 2px solid #ddd;
-    color: var(--text-color);
-    font-family: var(--font-body);
-    font-size: 1rem;
-    transition: var(--transition);
-}
-
-input:focus, textarea:focus {
-    outline: none;
-    border-bottom-color: var(--highlight);
-}
-
-input::placeholder, textarea::placeholder { color: #aaa; }
-
-/* --- FOOTER --- */
+/* --- Footer --- */
 footer {
-    background: var(--highlight); /* Navy Background */
-    color: #fff;
-    padding: 80px 0 30px;
-    margin-top: 80px;
-    /* Creative Touch: Angled top */
-    clip-path: polygon(0 15%, 100% 0, 100% 100%, 0 100%);
+    /* UPDATED: Uses variable to switch between Navy (Light) and Jet Black (Dark) */
+    background: var(--footer-bg); 
+    color: #fff; padding: 80px 0 30px; margin-top: auto;
+    transition: background-color 0.4s ease;
 }
+.footer-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 40px; margin-bottom: 40px; }
+.footer-col .logo { color: #fff; }
+.footer-col h4 { border-bottom: 2px solid var(--highlight); display: inline-block; padding-bottom: 10px; margin-bottom: 20px; color: #fff; }
+.footer-col p { color: #ccc; margin-bottom: 10px;}
+.footer-bottom { border-top: 1px solid rgba(255,255,255,0.1); padding-top: 25px; font-size: 0.85rem; color: #aaa; opacity: 0.8; }
 
-.footer-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-    gap: 40px;
-    margin-bottom: 40px;
+
+/* ==========================================================================
+   2. HOME PAGE STYLES (index.html)
+   ========================================================================== */
+
+/* Hero Slider */
+.hero-slider-section { position: relative; height: 100vh; width: 100%; overflow: hidden; display: flex; align-items: center; background-color: #000; }
+.slider-container { position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: 1; }
+.slide-bg {
+    position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+    background-size: cover; background-position: center; opacity: 0;
+    transition: opacity 0.8s ease-in-out, transform 0.1s ease-out; will-change: transform, opacity;
 }
+.slide-bg.active { opacity: 1; z-index: 2; }
+.hero-overlay { position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0, 0, 30, 0.5); z-index: 3; pointer-events: none; }
 
-/* Fix for invisible logo in footer */
-footer .logo {
-    color: #ffffff; /* Sets 'COSMO' to white */
+.hero-content-overlay { position: relative; z-index: 4; text-align: center; color: #fff; pointer-events: none; padding-top: 120px; }
+.hero-content-overlay h1 { font-size: 4.5rem; margin-bottom: 15px; color: #fff; text-shadow: 0 5px 15px rgba(0,0,0,0.5); }
+.hero-content-overlay p { font-size: 1.5rem; margin-bottom: 40px; color: #ddd; letter-spacing: 3px; font-weight: 300; }
+.btn-hero { pointer-events: auto !important; cursor: pointer; color: #fff !important; border: 2px solid #fff; margin-top: 40px; position: relative; z-index: 100; }
+
+.slider-arrow {
+    position: absolute; top: 50%; transform: translateY(-50%);
+    background: rgba(0, 0, 128, 0.3); color: #fff; border: none;
+    width: 50px; height: 50px; border-radius: 50%; font-size: 1.2rem;
+    cursor: pointer; z-index: 10; transition: var(--transition);
+    display: flex; align-items: center; justify-content: center; backdrop-filter: blur(5px);
 }
+.slider-arrow:hover { background: var(--accent); box-shadow: 0 0 15px var(--accent); }
+.prev-slide { left: 30px; } .next-slide { right: 30px; }
 
-.footer-col h4 { color: #fff; margin-bottom: 25px; font-size: 1.2rem; }
-.footer-col ul li { margin-bottom: 12px; color: #ccc; }
-.footer-col p { color: #ccc; }
-.footer-bottom { border-top: 1px solid rgba(255,255,255,0.1); padding-top: 25px; font-size: 0.85rem; opacity: 0.8; }
+/* Partnered Shops Grid */
+.partners-grid { display: flex; justify-content: center; flex-wrap: wrap; gap: 50px; align-items: center; margin-top: 40px; }
+.partner-logo { width: 150px; height: 80px; display: flex; align-items: center; justify-content: center; filter: grayscale(100%); opacity: 0.6; transition: var(--transition); }
+.partner-logo:hover { filter: grayscale(0%); opacity: 1; transform: scale(1.1); }
+.partner-logo img { max-height: 100%; width: auto; }
 
-/* --- RESPONSIVE --- */
-@media (max-width: 768px) {
-    .menu-toggle { display: block; color: var(--highlight); }
-    .nav-links {
-        position: absolute;
-        top: 70px;
-        left: 0;
-        width: 100%;
-        background: #fff;
-        flex-direction: column;
-        text-align: center;
-        padding: 30px 0;
-        box-shadow: 0 10px 20px rgba(0,0,0,0.1);
-        transform: translateY(-150%);
-        transition: var(--transition);
-    }
-    
-    .nav-links.active { transform: translateY(0); }
-    .hero-content h1 { font-size: 2.8rem; }
-    .hero { clip-path: none; } /* Remove slant on mobile for better space usage */
-    footer { clip-path: none; padding-top: 50px; }
+
+/* ==========================================================================
+   3. ABOUT PAGE STYLES (about.html)
+   ========================================================================== */
+
+/* Timeline */
+.timeline-item { margin-bottom: 20px; }
+
+
+/* ==========================================================================
+   4. SERVICES PAGE STYLES (services.html)
+   ========================================================================== */
+
+/* Parallax Page Header */
+.page-header {
+    height: 60vh;
+    background: linear-gradient(rgba(0,0,40,0.8), rgba(0,0,40,0.8)), url('https://placehold.co/1920x600/000020/FFF?text=Premium+Auto+Care');
+    background-size: cover; background-position: center; background-attachment: fixed;
+    display: flex; align-items: center; justify-content: center; text-align: center;
+    color: #fff; clip-path: polygon(0 0, 100% 0, 100% 90%, 0 100%);
 }
-/* --- PROCESS / WORKFLOW STYLES --- */
-.process-steps {
-    display: flex;
-    justify-content: space-between;
-    flex-wrap: wrap;
-    gap: 30px;
-    margin-top: 80px;
-    margin-bottom: 50px;
-    position: relative;
-}
+.page-header h1 { font-size: 3.5rem; margin-bottom: 10px; letter-spacing: -1px; }
 
-/* The connecting grey line */
+/* Process Steps */
+.process-steps { display: flex; justify-content: space-between; flex-wrap: wrap; gap: 30px; margin-top: 50px; position: relative; }
 .process-steps::before {
-    content: '';
-    position: absolute;
-    top: 40px;
-    left: 50px;
-    right: 50px;
-    height: 2px;
-    background: #e0e0e0;
-    z-index: 0;
+    content: ''; position: absolute; top: 40px; left: 50px; right: 50px; height: 2px;
 }
 
-.step-item {
-    flex: 1;
-    min-width: 200px;
-    text-align: center;
+/* UPDATED: Removed background color to remove the "box" look */
+.step-item { 
+    flex: 1; 
+    min-width: 200px; 
+    text-align: center; 
+    background: transparent; /* Changed from var(--bg-light) */
+    padding: 0 10px; 
+    z-index: 1; 
+}
+
+/* UPDATED: Removed gray border around the icon */
+.step-icon {
+    width: 80px; height: 80px; background: var(--primary); color: #fff; border-radius: 50%;
+    display: flex; align-items: center; justify-content: center; margin: 0 auto 20px;
+    font-size: 1.5rem; 
+    border: 5px solid transparent; /* Changed from var(--bg-light) */
+    transition: 0.3s;
+}
+.step-item:hover .step-icon { background: var(--accent); transform: rotate(10deg); box-shadow: 0 0 20px var(--accent); }
+
+/* FAQ Section */
+.faq-item { background: var(--card-bg); border-bottom: 1px solid #eee; margin-bottom: 10px; }
+details { padding: 15px; cursor: pointer; transition: 0.3s; }
+summary { font-weight: 600; color: var(--primary); list-style: none; display: flex; justify-content: space-between; align-items: center; }
+summary::-webkit-details-marker { display: none; }
+summary::after { content: '+'; font-size: 1.2rem; }
+details[open] summary::after { content: '-'; }
+details[open] { background: var(--bg-light); }
+.faq-answer { padding-top: 15px; color: var(--text-light); font-size: 0.95rem; }
+
+
+/* ==========================================================================
+   5. GALLERY PAGE STYLES (gallery.html)
+   ========================================================================== */
+
+/* Horizontal Scroll Layout */
+.gallery-wrapper { position: relative; display: flex; align-items: center; padding: 20px 0; }
+.gallery-scroll {
+    display: flex; gap: 25px; overflow-x: auto; scroll-behavior: smooth; padding: 30px 10px;
+    -webkit-overflow-scrolling: touch; scrollbar-width: none; -ms-overflow-style: none;
+}
+.gallery-scroll::-webkit-scrollbar { display: none; }
+
+.gallery-item {
+    min-width: 300px; height: 220px; background: var(--card-bg); border-radius: 12px; overflow: hidden; flex-shrink: 0;
+    box-shadow: var(--shadow-card); transition: transform 0.3s ease, box-shadow 0.3s ease; cursor: pointer;
+}
+.gallery-item img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.5s ease; }
+.gallery-item:hover { transform: scale(1.05) translateY(-10px); box-shadow: var(--shadow-hover); z-index: 2; }
+.gallery-item:hover img { transform: scale(1.1); }
+
+/* Navigation Arrows */
+.arrow {
+    position: absolute; top: 50%; transform: translateY(-50%);
+    background-color: var(--card-bg); color: var(--highlight); border: 1px solid #eee; box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+    font-size: 1.5rem; font-weight: bold; width: 45px; height: 45px; border-radius: 50%;
+    cursor: pointer; z-index: 10; display: flex; align-items: center; justify-content: center; transition: var(--transition);
+}
+.arrow:hover { background-color: var(--highlight); color: #fff; border-color: var(--highlight); }
+.arrow.left { left: -20px; } .arrow.right { right: -20px; }
+.arrow.hidden { opacity: 0; pointer-events: none; }
+
+
+/* ==========================================================================
+   6. CONTACT PAGE STYLES (contact.html)
+   ========================================================================== */
+
+/* Simple Banner Header */
+.page-header-banner { background: var(--primary); padding: 120px 0 60px; text-align: center; color: #fff; position: relative; overflow: hidden; }
+.banner-watermark { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); font-size: 8rem; opacity: 0.05; font-weight: 800; pointer-events: none; }
+
+/* Contact Form Layout */
+.contact-wrapper { display: flex; flex-wrap: wrap; gap: 60px; }
+.contact-info, .contact-form { flex: 1; min-width: 300px; }
+.form-group { margin-bottom: 25px; }
+input, textarea {
+    width: 100%; padding: 15px 0; background: transparent; border: none; border-bottom: 2px solid #ddd;
+    color: var(--text-color); font-family: var(--font-body); font-size: 1rem; transition: var(--transition);
+}
+input:focus, textarea:focus { outline: none; border-bottom-color: var(--highlight); }
+
+
+/* ==========================================================================
+   7. RESPONSIVE (Overrides for all pages)
+   ========================================================================== */
+@media (max-width: 768px) {
+    .menu-toggle { display: block; }
+    .nav-links {
+        position: absolute; top: 70px; left: 0; width: 100%; background: var(--card-bg);
+        flex-direction: column; text-align: center; padding: 30px 0;
+        box-shadow: 0 10px 20px rgba(0,0,0,0.1); transform: translateY(-150%); transition: var(--transition);
+    }
+    .nav-links.active { transform: translateY(0); }
+    
+    /* Home */
+    .hero-content-overlay h1 { font-size: 2.8rem; }
+    
+    /* Services */
+    .page-header h1 { font-size: 2.2rem; }
+    .process-steps::before { display: none; }
+    
+    /* Contact */
+    .contact-wrapper { gap: 30px; }
+}
+/* =========================================
+   NEW: CTA BANNER STYLES (Fixed Hover & Glow)
+   ========================================================= */
+
+/* 1. SECTION BACKGROUNDS */
+.cta-section {
+    background: linear-gradient(45deg, var(--primary), var(--highlight)); 
+    color: #fff;
+    transition: var(--transition);
+}
+
+/* Dark Mode Background */
+body.dark-mode .cta-section {
+    background: linear-gradient(45deg, #050505, var(--accent)); /* Jet Black to Deep Blue */
+    border-top: 1px solid #333;
+}
+
+
+/* 2. BUTTON STYLES (Solid Button) */
+.btn-cta {
+    background: #fff;
+    color: var(--primary); /* Navy Text */
+    border-radius: 4px;
+    
+    /* RESET: Remove the 'underline' and 'slide' effects from standard .btn */
     position: relative;
     z-index: 1;
-    /* Use var(--bg-color) if defined, otherwise white to mask the line */
-    background: #fff; 
-    padding: 0 10px;
+    overflow: visible; /* Allows glow to spill out */
 }
 
-.step-icon {
-    width: 80px;
-    height: 80px;
-    background: var(--highlight);
-    color: #fff;
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    margin: 0 auto 20px;
-    font-size: 1.5rem;
-    box-shadow: 0 10px 20px rgba(0,0,128,0.2);
-    transition: all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
-    border: 5px solid #fff; /* Thick border to hide the line behind it */
+/* Remove the standard button animations (Underline/Gradient) */
+.btn-cta::after, 
+.btn-cta::before {
+    display: none !important; 
 }
 
-.step-item:hover .step-icon {
-    transform: scale(1.1) rotate(10deg);
-    background: var(--accent); /* Turns red on hover */
-    box-shadow: 0 0 20px var(--accent);
+
+/* 3. LIGHT MODE HOVER */
+.btn-cta:hover {
+    transform: translateY(-3px); /* Slight lift */
+    box-shadow: 0 10px 20px rgba(0,0,0,0.2); /* Soft shadow */
+    color: var(--highlight); /* Text turns blue */
 }
 
-@media (max-width: 768px) {
-    .process-steps::before { display: none; } /* Hide line on mobile */
-    .process-steps { gap: 40px; }
+
+/* 4. DARK MODE STYLES & HOVER */
+body.dark-mode .btn-cta {
+    background: var(--highlight); /* Electric Cyan Button */
+    color: #000; /* Black Text */
+    box-shadow: none; /* No permanent glow */
+    transition: all 0.3s ease;
+}
+
+body.dark-mode .btn-cta:hover {
+    background: #fff; /* Turns White on hover */
+    color: var(--accent); /* Text turns Deep Blue */
+    
+    /* FIX: Cyan Glow ONLY on Hover */
+    box-shadow: 0 0 20px var(--highlight), 0 0 40px var(--highlight); 
+    transform: translateY(-3px) scale(1.05);
+}
+
+/* =========================================
+   FAQ SECTION STYLES
+   ========================================================= */
+.faq-section {
+    background-color: var(--bg-color); /* Adapts to Light/Dark automatically */
+    border-top: 1px solid rgba(0,0,0,0.1); /* Subtle dark line for Light Mode */
+    transition: var(--transition);
+}
+
+/* Dark Mode Override */
+body.dark-mode .faq-section {
+    border-top: 1px solid rgba(255,255,255,0.1); /* Subtle white line for Dark Mode */
+}
+
+/* =========================================
+   HOMEPAGE MARQUEE GALLERY
+   ========================================================= */
+.marquee-container {
+    overflow: hidden; /* Hides content that goes off-screen */
+    width: 100%;
+    position: relative;
+    padding: 20px 0;
+    /* Optional: Fades the edges for a smooth look */
+    mask-image: linear-gradient(to right, transparent, black 5%, black 95%, transparent);
+    -webkit-mask-image: linear-gradient(to right, transparent, black 5%, black 95%, transparent);
+}
+
+.marquee-track {
+    display: flex; /* Aligns items horizontally */
+    gap: 30px;     /* Space between images */
+    width: max-content; /* Forces track to be as wide as all images */
+    animation: scroll-left 30s linear infinite; /* The moving animation */
+}
+
+/* Pause scrolling when user hovers over images */
+.marquee-track:hover {
+    animation-play-state: paused;
+}
+
+/* The Animation: Moves the track to the left */
+@keyframes scroll-left {
+    0% { transform: translateX(0); }
+    100% { transform: translateX(-50%); } /* Moves exactly half-way (one set of items) */
 }

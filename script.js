@@ -1,30 +1,97 @@
 document.addEventListener('DOMContentLoaded', () => {
-    
-    // =========================================
-    // 1. MOBILE NAVIGATION
-    // =========================================
-    const menuToggle = document.querySelector('.menu-toggle');
-    const navLinks = document.querySelector('.nav-links');
 
-    if(menuToggle) {
-        menuToggle.addEventListener('click', () => {
-            navLinks.classList.toggle('active');
+    // =========================================
+    // 1. DYNAMIC HEADER & FOOTER LOADING
+    // =========================================
+    
+    // Load Header
+    // Uses '?v=2' to ensure the browser loads the latest version with the button
+    fetch('header.html?v=2')
+        .then(response => response.text())
+        .then(data => {
+            const headerPlaceholder = document.getElementById('header-placeholder');
+            if (headerPlaceholder) {
+                headerPlaceholder.innerHTML = data;
+                // Initialize Navigation logic ONLY after header is loaded
+                initializeNavigation();
+                // Initialize Dark Mode Logic
+                initializeTheme();
+            }
+        })
+        .catch(error => console.error('Error loading header:', error));
+
+    // Load Footer
+    fetch('footer.html')
+        .then(response => response.text())
+        .then(data => {
+            const footerPlaceholder = document.getElementById('footer-placeholder');
+            if (footerPlaceholder) {
+                footerPlaceholder.innerHTML = data;
+            }
+        })
+        .catch(error => console.error('Error loading footer:', error));
+
+
+    // =========================================
+    // NEW: THEME TOGGLE LOGIC
+    // =========================================
+    function initializeTheme() {
+        const toggleBtn = document.getElementById('theme-toggle');
+        const icon = toggleBtn ? toggleBtn.querySelector('i') : null;
+        const body = document.body;
+
+        // 1. Check LocalStorage on load
+        const currentTheme = localStorage.getItem('theme');
+        if (currentTheme === 'dark') {
+            body.classList.add('dark-mode');
+            if(icon) icon.classList.replace('fa-moon', 'fa-sun');
+        }
+
+        // 2. Event Listener
+        if (toggleBtn) {
+            toggleBtn.addEventListener('click', () => {
+                body.classList.toggle('dark-mode');
+                const isDark = body.classList.contains('dark-mode');
+
+                // Toggle Icon & Save Preference
+                if (isDark) {
+                    if(icon) icon.classList.replace('fa-moon', 'fa-sun');
+                    localStorage.setItem('theme', 'dark');
+                } else {
+                    if(icon) icon.classList.replace('fa-sun', 'fa-moon');
+                    localStorage.setItem('theme', 'light');
+                }
+            });
+        }
+    }
+
+
+    // =========================================
+    // 2. NAVIGATION LOGIC
+    // =========================================
+    function initializeNavigation() {
+        const menuToggle = document.querySelector('.menu-toggle');
+        const navLinks = document.querySelector('.nav-links');
+
+        if(menuToggle && navLinks) {
+            menuToggle.addEventListener('click', () => {
+                navLinks.classList.toggle('active');
+            });
+        }
+
+        const currentPath = window.location.pathname.split("/").pop();
+        const navItems = document.querySelectorAll('.nav-links a');
+
+        navItems.forEach(link => {
+            const linkHref = link.getAttribute('href');
+            if(linkHref === currentPath || (currentPath === '' && linkHref === 'index.html')) {
+                link.classList.add('active');
+            }
         });
     }
 
-    // --- Active Link Highlighting ---
-    const currentPath = window.location.pathname.split("/").pop();
-    const navItems = document.querySelectorAll('.nav-links a');
-
-    navItems.forEach(link => {
-        if(link.getAttribute('href') === currentPath || (currentPath === '' && link.getAttribute('href') === 'index.html')) {
-            link.classList.add('active');
-        }
-    });
-
-
     // =========================================
-    // 2. SCROLL ANIMATIONS (FADE IN)
+    // 3. FADE IN ANIMATIONS
     // =========================================
     const observerOptions = {
         threshold: 0.1,
@@ -40,7 +107,7 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }, observerOptions);
 
-    const fadeElements = document.querySelectorAll('.card, .section-title, .about-content, .gallery-item, .partner-logo, .step-item');
+    const fadeElements = document.querySelectorAll('.card, .section-title, .gallery-item, .step-item, .pricing-card, .about-content, .partner-logo');
     
     fadeElements.forEach(el => {
         el.style.opacity = '0';
@@ -49,151 +116,101 @@ document.addEventListener('DOMContentLoaded', () => {
         observer.observe(el);
     });
 
-    // Inject CSS for fade-in
     const styleSheet = document.createElement("style");
-    styleSheet.textContent = `
-        .fade-in {
-            opacity: 1 !important;
-            transform: translateY(0) !important;
-        }
-    `;
+    styleSheet.textContent = `.fade-in { opacity: 1 !important; transform: translateY(0) !important; }`;
     document.head.appendChild(styleSheet);
 
 
     // =========================================
-    // 3. HERO SECTION (SLIDER + CURSOR)
+    // 4. HERO SLIDER & PARALLAX (UPDATED: Auto Slide)
     // =========================================
-    
-    // --- Hero Slider Logic (Next/Prev Buttons) ---
     const slides = document.querySelectorAll('.slide-bg');
-    const nextSlideBtn = document.querySelector('.next-slide');
-    const prevSlideBtn = document.querySelector('.prev-slide');
-    let currentSlideIdx = 0;
-
     if (slides.length > 0) {
+        const nextSlideBtn = document.querySelector('.next-slide');
+        const prevSlideBtn = document.querySelector('.prev-slide');
+        let currentSlideIdx = 0;
         const totalSlides = slides.length;
+        let slideInterval; // Variable to hold the timer
 
+        // Function to change slides
         const changeSlide = (direction) => {
-            // Remove active class from current
             slides[currentSlideIdx].classList.remove('active');
-            // Reset transform so it doesn't get stuck in "parallax" position
-            slides[currentSlideIdx].style.transform = `translate(0px, 0px) scale(1.05)`;
+            slides[currentSlideIdx].style.transform = `translate(0px, 0px) scale(1.05)`; 
 
             if (direction === 'next') {
                 currentSlideIdx = (currentSlideIdx + 1) % totalSlides;
             } else {
                 currentSlideIdx = (currentSlideIdx - 1 + totalSlides) % totalSlides;
             }
-
-            // Add active class to new
             slides[currentSlideIdx].classList.add('active');
         };
 
-        if(nextSlideBtn && prevSlideBtn) {
-            nextSlideBtn.addEventListener('click', () => changeSlide('next'));
-            prevSlideBtn.addEventListener('click', () => changeSlide('prev'));
+        // Function to reset the 5-second timer
+        const resetTimer = () => {
+            clearInterval(slideInterval); // Stop current timer
+            slideInterval = setInterval(() => changeSlide('next'), 5000); // Start new 5s timer
+        };
+
+        // Event Listeners for Buttons (Manual Control)
+        if(nextSlideBtn) {
+            nextSlideBtn.addEventListener('click', () => {
+                changeSlide('next');
+                resetTimer(); // Reset timer so it doesn't auto-slide immediately after click
+            });
         }
 
-        // --- Cursor Tracking (Parallax) ---
+        if(prevSlideBtn) {
+            prevSlideBtn.addEventListener('click', () => {
+                changeSlide('prev');
+                resetTimer();
+            });
+        }
+
+        // Start Auto Slide on Load
+        slideInterval = setInterval(() => changeSlide('next'), 5000);
+
+        // Parallax Effect
         const heroSection = document.querySelector('.hero-slider-section');
-        
         if (heroSection) {
             heroSection.addEventListener('mousemove', (e) => {
                 const activeSlide = document.querySelector('.slide-bg.active');
                 if (!activeSlide) return;
-
-                const windowWidth = window.innerWidth;
-                const windowHeight = window.innerHeight;
-                
-                // Calculate position relative to center
-                const mouseX = (e.clientX - (windowWidth / 2));
-                const mouseY = (e.clientY - (windowHeight / 2));
-                
-                // Higher number = Slower movement
-                const dampen = 30; 
-
-                // Invert movement
-                const moveX = (mouseX / dampen) * -1;
-                const moveY = (mouseY / dampen) * -1;
-
+                const moveX = ((e.clientX - window.innerWidth / 2) / 30) * -1;
+                const moveY = ((e.clientY - window.innerHeight / 2) / 30) * -1;
                 activeSlide.style.transform = `translate(${moveX}px, ${moveY}px) scale(1.05)`;
             });
-
-            // Reset when mouse leaves
             heroSection.addEventListener('mouseleave', () => {
                 const activeSlide = document.querySelector('.slide-bg.active');
-                if(activeSlide) {
-                    activeSlide.style.transform = `translate(0px, 0px) scale(1.05)`;
-                }
+                if(activeSlide) activeSlide.style.transform = `translate(0px, 0px) scale(1.05)`;
             });
         }
     }
 
     // =========================================
-    // 4. CONTACT FORM
-    // =========================================
-    const contactForm = document.querySelector('form');
-    if(contactForm) {
-        contactForm.addEventListener('submit', (e) => {
-            // Use e.preventDefault() if you want to stop page reload,
-            // but remove it if you want the form to actually submit.
-            // e.preventDefault(); 
-            alert("Message Sent! Thank you.");
-        });
-    }
-
-    // =========================================
-    // 5. HORIZONTAL GALLERY SCROLL (ADDED)
+    // 5. GALLERY HORIZONTAL SCROLL
     // =========================================
     const galleryTrack = document.getElementById('galleryTrack');
     const galleryPrevBtn = document.getElementById('prevBtn');
     const galleryNextBtn = document.getElementById('nextBtn');
 
     if (galleryTrack && galleryPrevBtn && galleryNextBtn) {
-        
         const updateGalleryButtons = () => {
-            // Hide Left Button if at start
-            if (galleryTrack.scrollLeft <= 0) {
-                galleryPrevBtn.classList.add('hidden');
-            } else {
-                galleryPrevBtn.classList.remove('hidden');
-            }
-
-            // Hide Right Button if at end
-            // Tolerance -1 for float calculation differences
-            if (galleryTrack.scrollLeft + galleryTrack.clientWidth >= galleryTrack.scrollWidth - 1) {
-                galleryNextBtn.classList.add('hidden');
-            } else {
-                galleryNextBtn.classList.remove('hidden');
-            }
+            galleryPrevBtn.classList.toggle('hidden', galleryTrack.scrollLeft <= 0);
+            galleryNextBtn.classList.toggle('hidden', galleryTrack.scrollLeft + galleryTrack.clientWidth >= galleryTrack.scrollWidth - 1);
         };
-
-        galleryPrevBtn.addEventListener('click', () => {
-            galleryTrack.scrollBy({ left: -320, behavior: 'smooth' });
-        });
-
-        galleryNextBtn.addEventListener('click', () => {
-            galleryTrack.scrollBy({ left: 320, behavior: 'smooth' });
-        });
-
+        galleryPrevBtn.addEventListener('click', () => galleryTrack.scrollBy({ left: -320, behavior: 'smooth' }));
+        galleryNextBtn.addEventListener('click', () => galleryTrack.scrollBy({ left: 320, behavior: 'smooth' }));
         galleryTrack.addEventListener('scroll', updateGalleryButtons);
-        
-        // Initial check
-        updateGalleryButtons();
-    }
-    //Contact
-   //Form Submission
-    function newMessage(event){
-        event.preventDefault();
-
-        const nameInput = document.getElementById('senderName');    
-        const emailInput = document.getElementById('senderEmail');
-        const serviceInput = document.getElementById('serviceInterest');
-        const messageInput = document.getElementById('message');
-
-        alert("Your message has been sent. Thank you!");
-        console.log("New Inquiry Message has been received.");
-        window.location.reload();
+        updateGalleryButtons(); 
     }
 
+    // =========================================
+    // 6. CONTACT FORM HANDLING
+    // =========================================
+    const contactForm = document.querySelector('form');
+    if(contactForm) {
+        contactForm.addEventListener('submit', (e) => {
+            alert("Message Sent! Thank you.");
+        });
+    }
 });

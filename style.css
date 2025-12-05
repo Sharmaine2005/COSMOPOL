@@ -427,8 +427,9 @@ body.dark-mode .cta-section {
 
 /* 3. LIGHT MODE HOVER */
 .btn-cta:hover {
-    transform: translateY(-3px); /* Slight lift */
-    box-shadow: 0 10px 20px rgba(0,0,0,0.2); /* Soft shadow */
+    transform: translateY(-3px) scale(1.05); /* Added scale for extra "pop" */
+    box-shadow: 0 0 20px rgba(255, 255, 255, 0.8), 0 0 40px rgba(255, 255, 255, 0.5); 
+    
     color: var(--highlight); /* Text turns blue */
 }
 

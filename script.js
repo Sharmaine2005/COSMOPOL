@@ -203,14 +203,4 @@ document.addEventListener('DOMContentLoaded', () => {
         galleryTrack.addEventListener('scroll', updateGalleryButtons);
         updateGalleryButtons(); 
     }
-
-    // =========================================
-    // 6. CONTACT FORM HANDLING
-    // =========================================
-    const contactForm = document.querySelector('form');
-    if(contactForm) {
-        contactForm.addEventListener('submit', (e) => {
-            alert("Message Sent! Thank you.");
-        });
-    }
 });

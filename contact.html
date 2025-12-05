@@ -40,14 +40,30 @@
                         </iframe>
                     </div>
                 </div>
-
                 <div class="contact-form">
                     <h3 class="text-highlight">Send Inquiry</h3>
-                    <form action="#" method="POST">
-                        <div class="form-group"><label>Name</label><input type="text" placeholder="Your Name" required></div>
-                        <div class="form-group"><label>Email</label><input type="email" placeholder="Your Email" required></div>
-                        <div class="form-group"><label>Service of Interest</label><input type="text" placeholder="e.g. Ceramic Coating"></div>
-                        <div class="form-group"><label>Message</label><textarea rows="5" placeholder="How can we help?" required></textarea></div>
+                    
+                        <form action="submitForm.php" method="POST">
+                        <div class="form-group">
+                            <label>Name</label>
+                            <input type="text" name="name" placeholder="Your Name" required>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label>Email</label>
+                            <input type="email" name="email" placeholder="Your Email" required>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label>Service of Interest</label>
+                            <input type="text" name="service" placeholder="e.g. Ceramic Coating">
+                        </div>
+                        
+                        <div class="form-group">
+                            <label>Message</label>
+                            <textarea name="message" rows="5" placeholder="How can we help?" required></textarea>
+                        </div>
+                        
                         <button type="submit" class="btn btn-primary">Send Message</button>
                     </form>
                 </div>

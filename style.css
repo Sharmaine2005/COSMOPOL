@@ -36,6 +36,9 @@ html {
     --transition: all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
     --shadow-card: 0 10px 30px rgba(0,0,0,0.05);
     --shadow-hover: 0 20px 40px rgba(0,0,0,0.1);
+
+    /*gallery background change*/
+    --gallery-bg: url('assets/gallery-background-light.png');
 }
 
 /* --- Dark Mode Overrides (USER CUSTOM PALETTE) --- */
@@ -63,6 +66,9 @@ body.dark-mode {
     /* 4. Shadows */
     --shadow-card: 0 10px 30px rgba(0,0,0,0.7);
     --shadow-hover: 0 20px 40px rgba(0,0,0,0.9);
+
+    /*gallery background change*/
+    --gallery-bg: url('assets/gallery-background-dark.png');
 }
 
 /* Fix for sections with inline light backgrounds */
@@ -434,6 +440,16 @@ details[open] { background: var(--bg-light); }
 .gallery-slider-section .next-slide {
     right: 20px;
 }
+
+.gallery-background {
+    background-image: var(--gallery-bg);
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+}
+
+
 
 /* ==========================================================================
    6. CONTACT PAGE STYLES (contact.html)

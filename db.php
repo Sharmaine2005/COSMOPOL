@@ -16,7 +16,7 @@ try {
     // Set charset to utf8mb4 for proper Unicode support
     $conn->set_charset("utf8mb4");
 } catch (Exception $e) {
-    // Log the error securely (don't expose to users in production)
+    // Log the error securely
     error_log($e->getMessage());
     
     // Display user-friendly error message

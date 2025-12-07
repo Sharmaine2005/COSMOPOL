@@ -74,29 +74,100 @@ body.dark-mode section[style*="var(--bg-light)"] {
 /* Fix for Logo visibility in Dark Mode */
 body.dark-mode .logo { color: #fff; }
 
-/* Dark Mode Toggle Button */
+
+/* =========================================
+   THEME TOGGLE SWITCH STYLES (NEW)
+   ========================================= */
+
+/* 1. The Container (The Button itself) */
 .theme-toggle-btn {
-    background: none;
+    background: transparent;
     border: none;
     cursor: pointer;
-    font-size: 1.2rem;
-    color: var(--primary);
+    padding: 0;
+    margin-left: 10px; /* Spacing from other links */
+    display: flex;
+    align-items: center;
+}
+
+.theme-toggle-btn:hover {
+    transform: none; /* Removed rotation */
+}
+
+/* 2. The Track (The Pill Shape) */
+.toggle-track {
+    width: 50px;
+    height: 26px;
+    background-color: #ccc; /* Light gray for Light Mode */
+    border-radius: 50px;
+    position: relative;
+    transition: background-color 0.4s ease;
+    box-shadow: inset 0 2px 5px rgba(0,0,0,0.2);
+    display: block;
+}
+
+/* 3. The Knob (The Moving Circle) */
+.toggle-knob {
+    width: 20px;
+    height: 20px;
+    background-color: #fff;
+    border-radius: 50%;
+    position: absolute;
+    top: 3px;
+    left: 4px;
+    transition: transform 0.4s cubic-bezier(0.68, -0.55, 0.27, 1.55); /* Bouncy effect */
+    box-shadow: 0 2px 5px rgba(0,0,0,0.3);
     
-    /* Fixed width prevents menu jump */
-    width: 40px; 
+    /* Flex to center the tiny icons inside */
     display: flex;
     align-items: center;
     justify-content: center;
-    
-    margin: 0;
-    padding: 0;
-    transition: var(--transition);
+    overflow: hidden;
 }
 
-body.dark-mode .theme-toggle-btn { color: #feeb7a; /* Yellow for Sun */ }
-.theme-toggle-btn:hover { transform: rotate(15deg) scale(1.1); }
+/* 4. Icons inside the Knob */
+.toggle-knob i {
+    font-size: 10px; /* Very small icons */
+    position: absolute;
+    transition: opacity 0.3s ease, transform 0.3s ease;
+}
+
+.icon-sun {
+    color: #ffaa00; /* Orange Sun */
+    opacity: 1;
+    transform: scale(1);
+}
+
+.icon-moon {
+    color: var(--primary); /* Navy Moon */
+    opacity: 0;
+    transform: scale(0) rotate(-180deg);
+}
+
+/* --- Dark Mode State for Switch --- */
+body.dark-mode .toggle-track {
+    background-color: var(--highlight); /* Cyan/Blue track */
+}
+
+body.dark-mode .toggle-knob {
+    transform: translateX(22px); /* Moves right */
+    background-color: #fff;
+}
+
+body.dark-mode .icon-sun {
+    opacity: 0;
+    transform: scale(0) rotate(180deg);
+}
+
+body.dark-mode .icon-moon {
+    opacity: 1;
+    transform: scale(1) rotate(0);
+}
 
 
+/* =========================================
+   GLOBAL RESET & LAYOUT
+   ========================================= */
 * { margin: 0; padding: 0; box-sizing: border-box; }
 
 body {
@@ -113,15 +184,37 @@ body {
 
 h1, h2, h3, h4, h5, h6 {
     font-family: var(--font-head);
-    color: var(--highlight); /* Changed to Highlight (Cyan in Dark) */
+    color: var(--highlight);
     text-transform: uppercase;
     letter-spacing: 1px;
     font-weight: 700;
 }
 
-/* Specific override for Logo text to use Primary (Silver/Navy) */
-.logo { font-size: 1.8rem; font-weight: 800; color: var(--primary); font-family: var(--font-head); letter-spacing: 2px; }
-.logo span { color: var(--highlight); }
+/* --- Logo Styles (Images) --- */
+.logo { 
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+.logo-img-icon {
+    height: 45px; 
+    width: auto;
+    object-fit: contain;
+}
+
+.logo-img-name {
+    height: 35px;
+    width: auto;
+    object-fit: contain;
+}
+
+/* Invert Logo for Dark Mode */
+body.dark-mode .logo img {
+    filter: brightness(0) invert(1);
+}
 
 a { text-decoration: none; color: inherit; transition: var(--transition); }
 ul { list-style: none; }
@@ -148,12 +241,11 @@ img { max-width: 100%; display: block; }
     box-shadow: var(--shadow-card); transition: var(--transition);
     display: flex; flex-direction: column; border-top: 3px solid transparent; padding: 0;
 }
-/* Card Hover Border uses Accent (Deep Blue) */
 .card:hover { transform: translateY(-10px); box-shadow: var(--shadow-hover); border-top: 3px solid var(--accent); }
 .card img { width: 100%; height: 250px; object-fit: cover; }
 .card-body, .card { padding: 25px; } 
 .card img + .card-body { padding: 25px; } 
-.card h3 { color: var(--highlight); /* Cyan headlines in cards */ margin-bottom: 15px; font-size: 1.4rem; }
+.card h3 { color: var(--highlight); margin-bottom: 15px; font-size: 1.4rem; }
 .card p { font-size: 0.95rem; color: var(--text-light); margin-bottom: 20px; flex-grow: 1; }
 
 /* --- Buttons --- */
@@ -168,7 +260,7 @@ img { max-width: 100%; display: block; }
 }
 .btn::before {
     content: ''; position: absolute; bottom: 0; left: 0; width: 100%; height: 0%;
-    background: linear-gradient(to top, rgba(0, 51, 102, 0.2), transparent); /* Adjusted for Blue tint */
+    background: linear-gradient(to top, rgba(0, 51, 102, 0.2), transparent);
     z-index: -1; transition: var(--transition);
 }
 .btn:hover { color: var(--accent); letter-spacing: 2px; }
@@ -178,7 +270,6 @@ img { max-width: 100%; display: block; }
 .btn-primary { color: var(--highlight); border: 2px solid var(--highlight); border-radius: 4px; }
 .btn-outline { border: 2px solid var(--highlight); color: var(--highlight); margin-top: 15px; font-size: 0.85rem; padding: 8px 20px; border-radius: 4px; }
 .btn-outline:hover { background: var(--highlight); color: #fff; }
-/* Dark Mode fix for hover text on cyan button */
 body.dark-mode .btn-outline:hover { color: #000; } 
 
 /* --- Header & Navigation --- */
@@ -194,7 +285,6 @@ header {
 .nav-links { display: flex; gap: 35px; align-items: center; }
 .nav-links a { font-size: 0.9rem; font-weight: 600; color: var(--primary); text-transform: uppercase; position: relative; padding-bottom: 5px; }
 
-/* Nav Hover Animation */
 .nav-links a::after {
     content: ''; position: absolute; left: 50%; bottom: -5px; transform: translateX(-50%);
     width: 0; height: 6px; background-color: var(--accent); border-radius: 100px; opacity: 0;
@@ -207,7 +297,6 @@ header {
 
 /* --- Footer --- */
 footer {
-    /* UPDATED: Uses variable to switch between Navy (Light) and Jet Black (Dark) */
     background: var(--footer-bg); 
     color: #fff; padding: 80px 0 30px; margin-top: auto;
     transition: background-color 0.4s ease;
@@ -220,10 +309,8 @@ footer {
 
 
 /* ==========================================================================
-   2. HOME PAGE STYLES (index.html)
+   2. HOME PAGE STYLES
    ========================================================================== */
-
-/* Hero Slider */
 .hero-slider-section { position: relative; height: 100vh; width: 100%; overflow: hidden; display: flex; align-items: center; background-color: #000; }
 .slider-container { position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: 1; }
 .slide-bg {
@@ -237,7 +324,6 @@ footer {
 .hero-content-overlay { position: relative; z-index: 4; text-align: center; color: #fff; pointer-events: none; padding-top: 120px; }
 .hero-content-overlay h1 { font-size: 4.5rem; margin-bottom: 15px; color: #fff; text-shadow: 0 5px 15px rgba(0,0,0,0.5); }
 .hero-content-overlay p { font-size: 1.5rem; margin-bottom: 40px; color: #ddd; letter-spacing: 3px; font-weight: 300; }
-.btn-hero { pointer-events: auto !important; cursor: pointer; color: #fff !important; border: 2px solid #fff; margin-top: 40px; position: relative; z-index: 100; }
 
 .slider-arrow {
     position: absolute; top: 50%; transform: translateY(-50%);
@@ -257,18 +343,14 @@ footer {
 
 
 /* ==========================================================================
-   3. ABOUT PAGE STYLES (about.html)
+   3. ABOUT PAGE STYLES
    ========================================================================== */
-
-/* Timeline */
 .timeline-item { margin-bottom: 20px; }
 
 
 /* ==========================================================================
-   4. SERVICES PAGE STYLES (services.html)
+   4. SERVICES PAGE STYLES
    ========================================================================== */
-
-/* Parallax Page Header */
 .page-header {
     height: 60vh;
     background: linear-gradient(rgba(0,0,40,0.8), rgba(0,0,40,0.8)), url('https://placehold.co/1920x600/000020/FFF?text=Premium+Auto+Care');
@@ -278,29 +360,16 @@ footer {
 }
 .page-header h1 { font-size: 3.5rem; margin-bottom: 10px; letter-spacing: -1px; }
 
-/* Process Steps */
 .process-steps { display: flex; justify-content: space-between; flex-wrap: wrap; gap: 30px; margin-top: 50px; position: relative; }
 .process-steps::before {
     content: ''; position: absolute; top: 40px; left: 50px; right: 50px; height: 2px;
 }
 
-/* UPDATED: Removed background color to remove the "box" look */
-.step-item { 
-    flex: 1; 
-    min-width: 200px; 
-    text-align: center; 
-    background: transparent; /* Changed from var(--bg-light) */
-    padding: 0 10px; 
-    z-index: 1; 
-}
-
-/* UPDATED: Removed gray border around the icon */
+.step-item { flex: 1; min-width: 200px; text-align: center; background: transparent; padding: 0 10px; z-index: 1; }
 .step-icon {
     width: 80px; height: 80px; background: var(--primary); color: #fff; border-radius: 50%;
     display: flex; align-items: center; justify-content: center; margin: 0 auto 20px;
-    font-size: 1.5rem; 
-    border: 5px solid transparent; /* Changed from var(--bg-light) */
-    transition: 0.3s;
+    font-size: 1.5rem; border: 5px solid transparent; transition: 0.3s;
 }
 .step-item:hover .step-icon { background: var(--accent); transform: rotate(10deg); box-shadow: 0 0 20px var(--accent); }
 
@@ -316,10 +385,8 @@ details[open] { background: var(--bg-light); }
 
 
 /* ==========================================================================
-   5. GALLERY PAGE STYLES (gallery.html)
+   5. GALLERY PAGE STYLES
    ========================================================================== */
-
-/* Horizontal Scroll Layout */
 .gallery-wrapper { position: relative; display: flex; align-items: center; padding: 20px 0; }
 .gallery-scroll {
     display: flex; gap: 25px; overflow-x: auto; scroll-behavior: smooth; padding: 30px 10px;
@@ -335,7 +402,6 @@ details[open] { background: var(--bg-light); }
 .gallery-item:hover { transform: scale(1.05) translateY(-10px); box-shadow: var(--shadow-hover); z-index: 2; }
 .gallery-item:hover img { transform: scale(1.1); }
 
-/* Navigation Arrows */
 .arrow {
     position: absolute; top: 50%; transform: translateY(-50%);
     background-color: var(--card-bg); color: var(--highlight); border: 1px solid #eee; box-shadow: 0 4px 10px rgba(0,0,0,0.1);
@@ -348,14 +414,11 @@ details[open] { background: var(--bg-light); }
 
 
 /* ==========================================================================
-   6. CONTACT PAGE STYLES (contact.html)
+   6. CONTACT PAGE STYLES
    ========================================================================== */
-
-/* Simple Banner Header */
 .page-header-banner { background: var(--primary); padding: 120px 0 60px; text-align: center; color: #fff; position: relative; overflow: hidden; }
 .banner-watermark { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); font-size: 8rem; opacity: 0.05; font-weight: 800; pointer-events: none; }
 
-/* Contact Form Layout */
 .contact-wrapper { display: flex; flex-wrap: wrap; gap: 60px; }
 .contact-info, .contact-form { flex: 1; min-width: 300px; }
 .form-group { margin-bottom: 25px; }
@@ -367,7 +430,7 @@ input:focus, textarea:focus { outline: none; border-bottom-color: var(--highligh
 
 
 /* ==========================================================================
-   7. RESPONSIVE (Overrides for all pages)
+   7. RESPONSIVE
    ========================================================================== */
 @media (max-width: 768px) {
     .menu-toggle { display: block; }
@@ -378,120 +441,312 @@ input:focus, textarea:focus { outline: none; border-bottom-color: var(--highligh
     }
     .nav-links.active { transform: translateY(0); }
     
-    /* Home */
     .hero-content-overlay h1 { font-size: 2.8rem; }
-    
-    /* Services */
     .page-header h1 { font-size: 2.2rem; }
     .process-steps::before { display: none; }
-    
-    /* Contact */
     .contact-wrapper { gap: 30px; }
 }
+
+
 /* =========================================
    NEW: CTA BANNER STYLES (Fixed Hover & Glow)
    ========================================================= */
-
-/* 1. SECTION BACKGROUNDS */
 .cta-section {
     background: linear-gradient(45deg, var(--primary), var(--highlight)); 
     color: #fff;
     transition: var(--transition);
 }
 
-/* Dark Mode Background */
 body.dark-mode .cta-section {
-    background: linear-gradient(45deg, #050505, var(--accent)); /* Jet Black to Deep Blue */
+    background: linear-gradient(45deg, #050505, var(--accent));
     border-top: 1px solid #333;
 }
 
-
-/* 2. BUTTON STYLES (Solid Button) */
 .btn-cta {
     background: #fff;
-    color: var(--primary); /* Navy Text */
+    color: var(--primary);
     border-radius: 4px;
-    
-    /* RESET: Remove the 'underline' and 'slide' effects from standard .btn */
     position: relative;
     z-index: 1;
-    overflow: visible; /* Allows glow to spill out */
+    overflow: visible;
 }
 
-/* Remove the standard button animations (Underline/Gradient) */
 .btn-cta::after, 
-.btn-cta::before {
-    display: none !important; 
-}
+.btn-cta::before { display: none !important; }
 
-
-/* 3. LIGHT MODE HOVER */
 .btn-cta:hover {
-    transform: translateY(-3px) scale(1.05); /* Added scale for extra "pop" */
+    transform: translateY(-3px) scale(1.05);
     box-shadow: 0 0 20px rgba(255, 255, 255, 0.8), 0 0 40px rgba(255, 255, 255, 0.5); 
-    
-    color: var(--highlight); /* Text turns blue */
+    color: var(--highlight);
 }
 
-
-/* 4. DARK MODE STYLES & HOVER */
 body.dark-mode .btn-cta {
-    background: var(--highlight); /* Electric Cyan Button */
-    color: #000; /* Black Text */
-    box-shadow: none; /* No permanent glow */
+    background: var(--highlight);
+    color: #000;
+    box-shadow: none;
     transition: all 0.3s ease;
 }
 
 body.dark-mode .btn-cta:hover {
-    background: #fff; /* Turns White on hover */
-    color: var(--accent); /* Text turns Deep Blue */
-    
-    /* FIX: Cyan Glow ONLY on Hover */
+    background: #fff;
+    color: var(--accent);
     box-shadow: 0 0 20px var(--highlight), 0 0 40px var(--highlight); 
     transform: translateY(-3px) scale(1.05);
 }
 
-/* =========================================
-   FAQ SECTION STYLES
-   ========================================================= */
+/* FAQ SECTION Styles */
 .faq-section {
-    background-color: var(--bg-color); /* Adapts to Light/Dark automatically */
-    border-top: 1px solid rgba(0,0,0,0.1); /* Subtle dark line for Light Mode */
+    background-color: var(--bg-color);
+    border-top: 1px solid rgba(0,0,0,0.1);
     transition: var(--transition);
 }
 
-/* Dark Mode Override */
 body.dark-mode .faq-section {
-    border-top: 1px solid rgba(255,255,255,0.1); /* Subtle white line for Dark Mode */
+    border-top: 1px solid rgba(255,255,255,0.1);
 }
+
 
 /* =========================================
    HOMEPAGE MARQUEE GALLERY
    ========================================================= */
 .marquee-container {
-    overflow: hidden; /* Hides content that goes off-screen */
+    overflow: hidden;
     width: 100%;
     position: relative;
-    padding: 20px 0;
-    /* Optional: Fades the edges for a smooth look */
+    padding: 20px 0 50px 0 !important; /* Increased bottom padding for popup */
     mask-image: linear-gradient(to right, transparent, black 5%, black 95%, transparent);
     -webkit-mask-image: linear-gradient(to right, transparent, black 5%, black 95%, transparent);
 }
 
 .marquee-track {
-    display: flex; /* Aligns items horizontally */
-    gap: 30px;     /* Space between images */
-    width: max-content; /* Forces track to be as wide as all images */
-    animation: scroll-left 30s linear infinite; /* The moving animation */
+    display: flex;
+    gap: 30px;
+    width: max-content;
+    animation: scroll-left 30s linear infinite;
 }
 
-/* Pause scrolling when user hovers over images */
-.marquee-track:hover {
-    animation-play-state: paused;
-}
+.marquee-track:hover { animation-play-state: paused; }
 
-/* The Animation: Moves the track to the left */
 @keyframes scroll-left {
     0% { transform: translateX(0); }
-    100% { transform: translateX(-50%); } /* Moves exactly half-way (one set of items) */
+    100% { transform: translateX(-50%); }
+}
+
+/* Partner Logo Hover Text */
+.partner-logo {
+    position: relative;
+    overflow: visible !important;
+}
+
+.branch-name {
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    transform: translateX(-50%) translateY(10px);
+    opacity: 0;
+    visibility: hidden;
+    background-color: var(--highlight);
+    color: #fff;
+    padding: 5px 12px;
+    border-radius: 4px;
+    font-size: 0.75rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    white-space: nowrap;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+    z-index: 10;
+    transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.branch-name::before {
+    content: '';
+    position: absolute;
+    top: -4px;
+    left: 50%;
+    transform: translateX(-50%);
+    border-left: 5px solid transparent;
+    border-right: 5px solid transparent;
+    border-bottom: 5px solid var(--highlight);
+}
+
+.partner-logo:hover .branch-name {
+    opacity: 1;
+    visibility: visible;
+    transform: translateX(-50%) translateY(5px);
+}
+
+body.dark-mode .branch-name { color: #000; }
+
+
+/* =========================================
+   HERO BUTTON ANIMATIONS (Crystal Ripple + Shake)
+   ========================================= */
+.btn-hero::after,
+.btn-hero::before {
+    display: none !important;
+    content: none !important;
+}
+
+@keyframes crystal-ripple {
+    0% {
+        box-shadow: 0 0 0 0 rgba(255, 255, 255, 0.8), 
+                    0 0 0 0 rgba(0, 255, 255, 0.6); 
+    }
+    70% {
+        box-shadow: 0 0 0 15px rgba(255, 255, 255, 0), 
+                    0 0 0 30px rgba(0, 255, 255, 0);
+    }
+    100% {
+        box-shadow: 0 0 0 0 rgba(255, 255, 255, 0), 
+                    0 0 0 0 rgba(0, 255, 255, 0);
+    }
+}
+
+@keyframes shake-interval {
+    0%, 90%, 100% { transform: translateX(0); }
+    91%, 95% { transform: translateX(-4px) rotate(-1deg); }
+    93%, 97% { transform: translateX(4px) rotate(1deg); }
+}
+
+.btn-hero {
+    pointer-events: auto !important;
+    cursor: pointer;
+    color: #fff !important;
+    border: 2px solid rgba(255, 255, 255, 0.8);
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(2px);
+    margin-top: 40px;
+    position: relative;
+    z-index: 100;
+    border-radius: 50px; 
+    animation: 
+        crystal-ripple 2s infinite cubic-bezier(0.25, 0.46, 0.45, 0.94),
+        shake-interval 5s infinite;
+}
+
+.btn-hero:hover {
+    animation: none;
+    transform: scale(1.05);
+    background-color: #fff;
+    color: var(--primary) !important;
+    box-shadow: 0 0 20px rgba(255, 255, 255, 0.8), 0 0 40px rgba(0, 255, 255, 0.6); 
+    border-color: #fff;
+    transition: all 0.3s ease;
+}
+
+
+/* =========================================
+   FOOTER SPECIFIC UPDATES
+   ========================================= */
+footer .logo img {
+    filter: brightness(0) invert(1);
+}
+
+footer .logo {
+    flex-direction: column !important;
+    align-items: flex-start;
+    gap: 10px;
+}
+
+footer .logo-img-name { height: 30px; }
+footer .logo-img-icon { height: 80px; }
+
+/* Social Icons */
+.social-links {
+    display: flex;
+    gap: 15px;
+    margin-top: 5px;
+}
+
+.social-icon {
+    width: 38px;
+    height: 38px;
+    background-color: rgba(255, 255, 255, 0.1);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #fff;
+    font-size: 1rem;
+    transition: all 0.3s ease;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.social-icon:hover {
+    background-color: var(--highlight);
+    color: #fff;
+    transform: translateY(-3px);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+    border-color: var(--highlight);
+}
+
+
+/* =========================================
+   SERVICE MODAL (OVERLAY) STYLES
+   ========================================= */
+.modal-overlay {
+    display: none;
+    position: fixed;
+    top: 0; left: 0; width: 100%; height: 100%;
+    background-color: rgba(0, 0, 0, 0.8);
+    backdrop-filter: blur(5px);
+    z-index: 2000;
+    align-items: center; justify-content: center;
+    opacity: 0; transition: opacity 0.3s ease;
+}
+
+.modal-overlay.active { display: flex; opacity: 1; }
+
+.modal-content {
+    background: var(--card-bg);
+    width: 90%; max-width: 900px;
+    border-radius: 12px;
+    position: relative;
+    box-shadow: 0 25px 50px rgba(0,0,0,0.5);
+    transform: translateY(50px);
+    transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    overflow: hidden;
+}
+
+.modal-overlay.active .modal-content { transform: translateY(0); }
+
+.close-modal {
+    position: absolute; top: 15px; right: 20px;
+    font-size: 2rem; color: var(--text-color);
+    cursor: pointer; z-index: 10; transition: 0.2s;
+}
+.close-modal:hover { color: var(--accent); }
+
+.modal-grid { display: flex; flex-wrap: wrap; }
+.modal-img-wrapper { flex: 1; min-width: 300px; }
+.modal-img-wrapper img { width: 100%; height: 100%; object-fit: cover; min-height: 300px; }
+.modal-details { flex: 1; min-width: 300px; padding: 40px; display: flex; flex-direction: column; justify-content: center; }
+
+body.dark-mode .modal-content { background: #1a1a1a; border: 1px solid #333; }
+
+
+/* =========================================
+   SERVICE "KNOW MORE" BUTTON STYLES
+   ========================================= */
+.view-details-btn {
+    color: var(--accent) !important;
+    border: 2px solid var(--accent) !important;
+    background: transparent !important;
+    transition: all 0.3s ease;
+    transform: none !important;
+    margin-top: 15px;
+}
+
+.view-details-btn::after,
+.view-details-btn::before {
+    display: none !important;
+    content: none !important;
+}
+
+.view-details-btn:hover {
+    background-color: var(--accent) !important;
+    color: #fff !important;
+    border-color: var(--accent) !important;
+    transform: none !important; 
+    box-shadow: none !important;
 }

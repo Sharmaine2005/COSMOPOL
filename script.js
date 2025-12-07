@@ -203,4 +203,62 @@ document.addEventListener('DOMContentLoaded', () => {
         galleryTrack.addEventListener('scroll', updateGalleryButtons);
         updateGalleryButtons(); 
     }
+
+    // =========================================
+    // 6. SERVICE MODAL LOGIC
+    // =========================================
+    const modalOverlay = document.getElementById('service-modal');
+    
+    if (modalOverlay) {
+        const modalImg = document.getElementById('modal-img');
+        const modalTitle = document.getElementById('modal-title');
+        const modalDesc = document.getElementById('modal-desc');
+        const modalBtn = document.getElementById('modal-cta');
+        const closeModal = document.querySelector('.close-modal');
+        const viewBtns = document.querySelectorAll('.view-details-btn');
+
+        // Function to Open Modal
+        viewBtns.forEach(btn => {
+            btn.addEventListener('click', (e) => {
+                e.preventDefault(); // Prevent jump if it's a link
+                
+                // 1. Get Data from Button
+                const title = btn.getAttribute('data-title');
+                const desc = btn.getAttribute('data-desc');
+                const img = btn.getAttribute('data-img');
+                const link = btn.getAttribute('data-link');
+
+                // 2. Populate Modal
+                modalTitle.textContent = title;
+                modalDesc.textContent = desc;
+                modalImg.src = img;
+                modalBtn.href = link;
+
+                // 3. Show Modal
+                modalOverlay.classList.add('active');
+            });
+        });
+
+        // Function to Close Modal
+        const hideModal = () => {
+            modalOverlay.classList.remove('active');
+        };
+
+        // Close on 'X' click
+        if(closeModal) closeModal.addEventListener('click', hideModal);
+
+        // Close on clicking outside the box
+        modalOverlay.addEventListener('click', (e) => {
+            if (e.target === modalOverlay) {
+                hideModal();
+            }
+        });
+        
+        // Close on Escape key
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape' && modalOverlay.classList.contains('active')) {
+                hideModal();
+            }
+        });
+    }
 });

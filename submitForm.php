@@ -1,5 +1,4 @@
 <?php
-
 //Database Connection
 require_once 'db.php';
 if ($conn->connect_error) {
@@ -26,14 +25,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $stmt->close();
         header("Location: thankYou.html"); 
         exit();
-        
-        if ($stmt->execute() === FALSE) {
-            // ERROR
-            $error_message = "Error executing statement: " . $stmt->error . 
-                             "<br>SQL: " . $sql . 
-                             "<br>Data: Name: " . $name . ", Email: " . $email;
-            die("<h2>Database Insertion Failed</h2>" . $error_message);
-        }
     }
 } else {
     //Handle Direct Access

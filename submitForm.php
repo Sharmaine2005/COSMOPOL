@@ -7,16 +7,11 @@ if ($conn->connect_error) {
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {   
     $name = trim($_POST['name']);
-    $rating = filter_var($_POST['rating'], FILTER_VALIDATE_INT, array("options" => array("min_range" => 1, "max_range" => 5)));
-    $review_text = trim($_POST['review_text']);
+    $email = trim($_POST['email']);
+    $service = isset($_POST['service']) && !empty($_POST['service']) ? trim($_POST['service']) : null;
+    $message = trim($_POST['message']);
 
-    //Validation check for rating
-    if ($rating === false || empty($name) || empty($review_text)) {
-        header("Location: index.php?status=error&message=Invalid input data.");
-        exit();
-    }
-
-    $sql = "INSERT INTO clientfeedback (name, rating, feedback) VALUES (?, ?, ?)";
+    $sql = "INSERT INTO inquiries (name, email, service, message) VALUES (?, ?, ?, ?)";
     $stmt = $conn->prepare($sql);
 
     if ($stmt === false) {
@@ -24,11 +19,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $conn->close(); //Close connection
     } else { 
     //Bind Parameters
-        $stmt->bind_param("sis", $name, $rating, $feedback);
+        $stmt->bind_param("ssss", $name, $email, $service, $message); 
     //Execute
         $stmt->execute();
         $stmt->close();
-        header("Location: index.php?status=error&message=System error processing feedback."); 
+        header("Location: thankYou.html"); 
         exit();
     }
 } else {

@@ -204,3 +204,35 @@ document.addEventListener('DOMContentLoaded', () => {
         updateGalleryButtons(); 
     }
 });
+
+    // =========================================
+    // 6. FEEDBACK MODAL LOGIC (New Section)
+    // =========================================
+    function initializeFeedbackModal() {
+        const modal = document.getElementById('feedbackModal');
+        const btn = document.getElementById('openFeedbackModal');
+        const closeSpan = document.querySelector('#feedbackModal .close-btn');
+
+        if (modal && btn && closeSpan) {
+            //Open Form Modal when button is clicked
+            btn.onclick = function() {
+                modal.style.display = "block";
+                document.body.style.overflow = "hidden"; //Prevent scrolling behind the modal
+            }
+
+            //Close the modal when the X/close button is clicked
+            closeSpan.onclick = function() {
+                modal.style.display = "none";
+                document.body.style.overflow = "auto";
+            }
+
+            //Close the modal when the user clicks anywhere outside of modal content
+            window.onclick = function(event) {
+                if (event.target == modal) {
+                    modal.style.display = "none";
+                    document.body.style.overflow = "auto";
+                }
+            }
+        }
+    }
+    initializeFeedbackModal(); 

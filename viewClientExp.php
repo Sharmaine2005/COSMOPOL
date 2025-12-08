@@ -13,7 +13,7 @@ if ($result && $result->num_rows > 0) {
     while($row = $result->fetch_assoc()) {
         $name = htmlspecialchars($row['name']);
         $rating = (int)$row['rating'];
-        $review_text = htmlspecialchars($row['feedback']);
+        $feedback = htmlspecialchars($row['feedback']);
         
         //Stars Rating
         $stars_html = '';

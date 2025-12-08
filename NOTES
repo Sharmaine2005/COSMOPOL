@@ -16,3 +16,9 @@ CREATE TABLE clientfeedback (
     is_approved BOOLEAN DEFAULT FALSE,
     submitted_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
+
+INSERT INTO clientfeedback (name, rating, feedback, is_approved) 
+VALUES 
+('James T.', 5, 'My car looks brand new again. The ceramic coating is worth every peso.', 1),
+('Carla M.', 5, 'Great service and friendly staff. They really know how to take care of luxury cars.', 1),
+('Ryan D.', 4, 'Highly recommended for PPF installation. The finish is flawless.', 1);

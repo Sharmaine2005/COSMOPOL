@@ -8,7 +8,7 @@ if ($conn->connect_error) {
 if ($_SERVER["REQUEST_METHOD"] == "POST") {   
     $name = trim($_POST['name']);
     $rating = filter_var($_POST['rating'], FILTER_VALIDATE_INT, array("options" => array("min_range" => 1, "max_range" => 5)));
-    $review_text = trim($_POST['review_text']);
+    $feedback = trim($_POST['feedback']);
 
     //Validation check for rating
     if ($rating === false || empty($name) || empty($review_text)) {

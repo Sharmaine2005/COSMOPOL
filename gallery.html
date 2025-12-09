@@ -13,14 +13,30 @@
 <body>
     <div id="header-placeholder"></div>
 
-    <section class="page-header">
-        <div class="container">
-            <h1>The Art of Detail</h1>
-            <p style="font-size: 1.2rem; opacity: 0.9; max-width: 600px; margin: 0 auto;">Browse our portfolio of transformed vehicles, precision installations, and our state-of-the-art facility.</p>
-        </div>
-    </section>
+  <!-- HERO SLIDESHOW BACKGROUND FOR GALLERY -->
+<section id="gallery" class="gallery-slider-section" style="height: 60vh;">
+    <div class="slider-container">
+        <div class="slide-bg active" style="background-image: url('assets/gallery-background3.png');"></div>
+        <div class="slide-bg" style="background-image: url('assets/gallery-slider2.jpg');"></div>
+        <div class="slide-bg" style="background-image: url('assets/gallery-slider3.jpg');"></div>
+        <div class="slide-bg" style="background-image: url('assets/gallery-slider4.jpg');"></div>
+        <div class="slide-bg" style="background-image: url('assets/gallery-slider5.jpg');"></div>
+    </div>
 
-    <section class="section-padding">
+    <div class="hero-overlay"></div>
+
+    <div class="gallery-overlay container">
+        <h1>The Art of Detail</h1>
+        <p style="font-size: 1.2rem; opacity: 0.9; max-width: 600px; margin: 0 auto;">
+            Browse our portfolio of transformed vehicles, precision installations, and our state-of-the-art facility.
+        </p>
+    </div>
+
+
+</section>
+
+    <section class="section-padding gallery-background">
+
         <div class="container">
             <h2 class="section-title" data-title="GALLERY">Our Work</h2>
             <p class="text-center" style="margin-bottom: 40px;">Explore our finest work and facility.</p>
@@ -28,14 +44,14 @@
             <div class="gallery-wrapper">
                 <button class="arrow left hidden" id="prevBtn">&lt;</button>        
                 <div class="gallery-scroll" id="galleryTrack">
-                    <div class="gallery-item"><img src="https://placehold.co/400x300/222/FFF?text=Project+1" alt="Gallery 1"></div>
-                    <div class="gallery-item"><img src="https://placehold.co/400x300/222/FFF?text=Project+2" alt="Gallery 2"></div>
-                    <div class="gallery-item"><img src="https://placehold.co/400x300/222/FFF?text=Project+3" alt="Gallery 3"></div>
-                    <div class="gallery-item"><img src="https://placehold.co/400x300/222/FFF?text=Project+4" alt="Gallery 4"></div>
-                    <div class="gallery-item"><img src="https://placehold.co/400x300/222/FFF?text=Shop+Interior" alt="Gallery 5"></div>
-                    <div class="gallery-item"><img src="https://placehold.co/400x300/222/FFF?text=Process" alt="Gallery 6"></div>
-                    <div class="gallery-item"><img src="https://placehold.co/400x300/222/FFF?text=Before+After" alt="Gallery 7"></div>
-                    <div class="gallery-item"><img src="https://placehold.co/400x300/222/FFF?text=Close+Up" alt="Gallery 8"></div>
+                    <div class="gallery-item"><img src="assets/galleryImage.jpg" alt="Gallery 1"></div>
+                    <div class="gallery-item"><img src="assets/galleryImage2.jpg" alt="Gallery 2"></div>
+                    <div class="gallery-item"><img src="assets/galleryImage3.jpg" alt="Gallery 3"></div>
+                    <div class="gallery-item"><img src="assets/galleryImage4.jpg" alt="Gallery 4"></div>
+                    <div class="gallery-item"><img src="assets/galleryImage5.jpg" alt="Gallery 5"></div>
+                    <div class="gallery-item"><img src="assets/galleryImage6.jpg" alt="Gallery 6"></div>
+                    <div class="gallery-item"><img src="assets/galleryImage7.jpg" alt="Gallery 7"></div>
+                    <div class="gallery-item"><img src="assets/galleryImage8.jpg" alt="Gallery 8"></div>
                 </div>
                 <button class="arrow right" id="nextBtn">&gt;</button>
             </div>

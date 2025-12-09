@@ -205,8 +205,37 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 });
 
+//Added
     // =========================================
-    // 6. FEEDBACK MODAL LOGIC (New Section)
+    // 6. DYNAMIC REVIEWS LOADING
+    // =========================================
+    function loadClientExperiences() {
+        const reviewsPlaceholder = document.getElementById('client-experiences-placeholder');
+        
+        if (reviewsPlaceholder) {
+            // Fetch HTML Content
+            fetch('viewClientExp.php')
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error('Server error when fetching reviews.');
+                    }
+                    return response.text(); //Get PHP's HTML output
+                })
+                .then(html => {
+                    reviewsPlaceholder.innerHTML = html;
+                })
+                .catch(error => {
+                    console.error('Error loading client experiences:', error);
+                    //Error Message
+                    reviewsPlaceholder.innerHTML = '<p class="text-center" style="grid-column: 1 / -1; color: red;">Failed to load reviews. Please check server status.</p>';
+                });
+        }
+    }
+    loadClientExperiences();
+
+
+    // =========================================
+    // 7. FEEDBACK MODAL LOGIC
     // =========================================
     function initializeFeedbackModal() {
         const modal = document.getElementById('feedbackModal');

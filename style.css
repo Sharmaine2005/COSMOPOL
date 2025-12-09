@@ -498,31 +498,35 @@ body.dark-mode .faq-section {
 
 
 
-/* Modal (Pop-up) For Review Feedback*/
+/*Modal (Pop-up) For Review Feedback*/
 
 .modal {
-    display: none; /*Hidden in Default*/
+    display: none;
     position: fixed;
     z-index: 1000;
     left: 0;
     top: 0;
     width: 100%;
     height: 100%;
-    overflow: auto; /*Enable scroll*/
-    background-color: rgba(0,0,0,0.7); /*Black w/ opacity*/
-    padding-top: 60px;
+    overflow: auto; 
+    background-color: transparent !important; 
+    padding-top: 60px; 
 }
 
-.modal-content {
-    background-color: var(--bg-color);
-    margin: 5% auto; /*5% from the top and centered*/
+.modal-content {  
+    /*Uses var(--bg-color) to be white/dark grey based on theme mode*/
+    background-color: var(--bg-color); 
+    margin: 5% auto; 
+    
     padding: 30px;
     border: 1px solid var(--border-color);
-    width: 80%; /*Could be more or less, depending on screen size*/
-    max-width: 450px;
+    width: 90%; 
+    max-width: 380px;
+    
     border-radius: 8px;
     position: relative;
-    box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+    box-shadow: 0 10px 30px rgba(0,0,0,0.25); 
+    opacity: 1; 
 }
 
 .close-btn {

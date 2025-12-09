@@ -11,7 +11,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $feedback = trim($_POST['feedback']);
 
     //Validation check for rating
-    if ($rating === false || empty($name) || empty($review_text)) {
+    if ($rating === false || empty($name) || empty($feedback)) {
         header("Location: index.php?status=error&message=Invalid input data.");
         exit();
     }

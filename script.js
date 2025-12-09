@@ -5,16 +5,13 @@ document.addEventListener('DOMContentLoaded', () => {
     // =========================================
     
     // Load Header
-    // Uses '?v=2' to ensure the browser loads the latest version with the button
     fetch('header.html?v=2')
         .then(response => response.text())
         .then(data => {
             const headerPlaceholder = document.getElementById('header-placeholder');
             if (headerPlaceholder) {
                 headerPlaceholder.innerHTML = data;
-                // Initialize Navigation logic ONLY after header is loaded
                 initializeNavigation();
-                // Initialize Dark Mode Logic
                 initializeTheme();
             }
         })
@@ -40,20 +37,17 @@ document.addEventListener('DOMContentLoaded', () => {
         const icon = toggleBtn ? toggleBtn.querySelector('i') : null;
         const body = document.body;
 
-        // 1. Check LocalStorage on load
         const currentTheme = localStorage.getItem('theme');
         if (currentTheme === 'dark') {
             body.classList.add('dark-mode');
             if(icon) icon.classList.replace('fa-moon', 'fa-sun');
         }
 
-        // 2. Event Listener
         if (toggleBtn) {
             toggleBtn.addEventListener('click', () => {
                 body.classList.toggle('dark-mode');
                 const isDark = body.classList.contains('dark-mode');
 
-                // Toggle Icon & Save Preference
                 if (isDark) {
                     if(icon) icon.classList.replace('fa-moon', 'fa-sun');
                     localStorage.setItem('theme', 'dark');
@@ -122,7 +116,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
 
     // =========================================
-    // 4. HERO SLIDER & PARALLAX (UPDATED: Auto Slide)
+    // 4. HERO SLIDER & PARALLAX
     // =========================================
     const slides = document.querySelectorAll('.slide-bg');
     if (slides.length > 0) {
@@ -130,9 +124,8 @@ document.addEventListener('DOMContentLoaded', () => {
         const prevSlideBtn = document.querySelector('.prev-slide');
         let currentSlideIdx = 0;
         const totalSlides = slides.length;
-        let slideInterval; // Variable to hold the timer
+        let slideInterval;
 
-        // Function to change slides
         const changeSlide = (direction) => {
             slides[currentSlideIdx].classList.remove('active');
             slides[currentSlideIdx].style.transform = `translate(0px, 0px) scale(1.05)`; 
@@ -145,17 +138,15 @@ document.addEventListener('DOMContentLoaded', () => {
             slides[currentSlideIdx].classList.add('active');
         };
 
-        // Function to reset the 5-second timer
         const resetTimer = () => {
-            clearInterval(slideInterval); // Stop current timer
-            slideInterval = setInterval(() => changeSlide('next'), 5000); // Start new 5s timer
+            clearInterval(slideInterval);
+            slideInterval = setInterval(() => changeSlide('next'), 5000);
         };
 
-        // Event Listeners for Buttons (Manual Control)
         if(nextSlideBtn) {
             nextSlideBtn.addEventListener('click', () => {
                 changeSlide('next');
-                resetTimer(); // Reset timer so it doesn't auto-slide immediately after click
+                resetTimer();
             });
         }
 
@@ -166,10 +157,8 @@ document.addEventListener('DOMContentLoaded', () => {
             });
         }
 
-        // Start Auto Slide on Load
         slideInterval = setInterval(() => changeSlide('next'), 5000);
 
-        // Parallax Effect
         const heroSection = document.querySelector('.hero-slider-section');
         if (heroSection) {
             heroSection.addEventListener('mousemove', (e) => {
@@ -217,48 +206,95 @@ document.addEventListener('DOMContentLoaded', () => {
         const closeModal = document.querySelector('.close-modal');
         const viewBtns = document.querySelectorAll('.view-details-btn');
 
-        // Function to Open Modal
         viewBtns.forEach(btn => {
             btn.addEventListener('click', (e) => {
-                e.preventDefault(); // Prevent jump if it's a link
+                e.preventDefault();
                 
-                // 1. Get Data from Button
                 const title = btn.getAttribute('data-title');
                 const desc = btn.getAttribute('data-desc');
                 const img = btn.getAttribute('data-img');
                 const link = btn.getAttribute('data-link');
 
-                // 2. Populate Modal
                 modalTitle.textContent = title;
                 modalDesc.textContent = desc;
                 modalImg.src = img;
                 modalBtn.href = link;
 
-                // 3. Show Modal
                 modalOverlay.classList.add('active');
             });
         });
 
-        // Function to Close Modal
         const hideModal = () => {
             modalOverlay.classList.remove('active');
         };
 
-        // Close on 'X' click
         if(closeModal) closeModal.addEventListener('click', hideModal);
 
-        // Close on clicking outside the box
         modalOverlay.addEventListener('click', (e) => {
             if (e.target === modalOverlay) {
                 hideModal();
             }
         });
         
-        // Close on Escape key
         document.addEventListener('keydown', (e) => {
             if (e.key === 'Escape' && modalOverlay.classList.contains('active')) {
                 hideModal();
             }
         });
     }
-});
+
+    // =========================================
+    // 7. DYNAMIC REVIEWS LOADING (NEW)
+    // =========================================
+    function loadClientExperiences() {
+        const reviewsPlaceholder = document.getElementById('client-experiences-placeholder');
+        
+        if (reviewsPlaceholder) {
+            fetch('viewClientExp.php')
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error('Server error when fetching reviews.');
+                    }
+                    return response.text();
+                })
+                .then(html => {
+                    reviewsPlaceholder.innerHTML = html;
+                })
+                .catch(error => {
+                    console.error('Error loading client experiences:', error);
+                    reviewsPlaceholder.innerHTML = '<p class="text-center" style="grid-column: 1 / -1; color: red;">Failed to load reviews. Please check server status.</p>';
+                });
+        }
+    }
+    loadClientExperiences();
+
+    // =========================================
+    // 8. FEEDBACK MODAL LOGIC (NEW)
+    // =========================================
+    function initializeFeedbackModal() {
+        const modal = document.getElementById('feedbackModal');
+        const btn = document.getElementById('openFeedbackModal');
+        const closeSpan = document.querySelector('#feedbackModal .close-btn');
+
+        if (modal && btn && closeSpan) {
+            btn.onclick = function() {
+                modal.style.display = "block";
+                document.body.style.overflow = "hidden";
+            }
+
+            closeSpan.onclick = function() {
+                modal.style.display = "none";
+                document.body.style.overflow = "auto";
+            }
+
+            window.onclick = function(event) {
+                if (event.target == modal) {
+                    modal.style.display = "none";
+                    document.body.style.overflow = "auto";
+                }
+            }
+        }
+    }
+    initializeFeedbackModal(); 
+
+}); 

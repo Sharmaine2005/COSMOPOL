@@ -529,10 +529,12 @@ body.dark-mode .faq-section {
 
 @keyframes scroll-left {
     0% { transform: translateX(0); }
-    100% { transform: translateX(-50%); }
+    100% { transform: translateX(-50%); } /* Moves exactly half-way */
 }
 
-/* Partner Logo Hover Text */
+/* =========================================
+   PARTNER LOGO HOVER TEXT (Tooltip)
+   ========================================= */
 .partner-logo {
     position: relative;
     overflow: visible !important;
@@ -682,7 +684,7 @@ footer .logo-img-icon { height: 80px; }
 
 
 /* =========================================
-   SERVICE MODAL (OVERLAY) STYLES
+   SERVICE MODAL (Large Details Popup)
    ========================================= */
 .modal-overlay {
     display: none;
@@ -749,4 +751,90 @@ body.dark-mode .modal-content { background: #1a1a1a; border: 1px solid #333; }
     border-color: var(--accent) !important;
     transform: none !important; 
     box-shadow: none !important;
+}
+
+
+/* =========================================
+   NEW: STAR RATING COMPONENT STYLES
+   ========================================= */
+.star-rating-group {
+    margin-bottom: 20px; 
+}
+
+.rating {
+    /* Use flexbox and reverse order so inputs work correctly */
+    display: flex;
+    flex-direction: row-reverse;
+    justify-content: center;
+    padding: 10px 0;
+}
+
+.rating > input { display: none; }
+
+.rating > label {
+    position: relative;
+    width: 1.1em;
+    font-size: 24px;
+    color: var(--text-light);
+    cursor: pointer;
+}
+
+.rating > label::before {
+    content: "\f005"; 
+    font-family: "Font Awesome 6 Free";
+    font-weight: 900;
+    display: inline-block;
+}
+
+/* Hover and Checked State Logic */
+.rating > label:hover,
+.rating > label:hover ~ label { color: #ffc107; }
+.rating > input:checked ~ label { color: #ffc107; }
+.rating > input:checked ~ label:hover,
+.rating > input:checked ~ label:hover ~ label { color: #ffc107; }
+
+
+/* =========================================
+   NEW: FEEDBACK MODAL (Small Form Popup)
+   ========================================= */
+/* Specific styling for the Feedback Modal to prevent conflict with Service Modal */
+#feedbackModal {
+    display: none;
+    position: fixed;
+    z-index: 1000;
+    left: 0; top: 0;
+    width: 100%; height: 100%;
+    overflow: auto; 
+    background-color: rgba(0,0,0,0.6) !important; /* Dark overlay */
+    padding-top: 60px; 
+}
+
+/* We target the modal-content INSIDE feedbackModal specifically */
+#feedbackModal .modal-content {  
+    background-color: var(--bg-color); 
+    margin: 5% auto; 
+    padding: 30px;
+    border: 1px solid var(--border-color);
+    width: 90%; 
+    max-width: 380px; /* Kept small as per branch design */
+    border-radius: 8px;
+    position: relative;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.25); 
+    opacity: 1; 
+    transform: none; /* Reset transform from service modal */
+}
+
+#feedbackModal .close-btn {
+    color: var(--text-color);
+    position: absolute;
+    top: 10px; right: 20px;
+    font-size: 30px;
+    font-weight: bold;
+    transition: color 0.2s;
+}
+
+#feedbackModal .close-btn:hover {
+    color: var(--highlight);
+    text-decoration: none;
+    cursor: pointer;
 }

@@ -496,6 +496,61 @@ body.dark-mode .faq-section {
     100% { transform: translateX(-50%); } /* Moves exactly half-way (one set of items) */
 }
 
+/* =========================================
+   NEW: STAR RATING COMPONENT STYLES
+   ========================================= */
+
+.star-rating-group {
+    margin-bottom: 20px; 
+}
+
+.rating {
+    /*Use flexbox and reverse the order so input #star5 appears first visually*/
+    display: flex;
+    flex-direction: row-reverse;
+    justify-content: center;
+    padding: 10px 0;
+}
+
+.rating > input {
+    /*Hide radio buttons */
+    display: none;
+}
+
+.rating > label {
+    position: relative;
+    width: 1.1em;
+    font-size: 24px;
+    color: var(--text-light); /*Default color (Unlit star)*/
+    cursor: pointer;
+}
+
+.rating > label::before {
+    content: "\f005"; 
+    font-family: "Font Awesome 6 Free";
+    font-weight: 900;
+    display: inline-block;
+}
+
+/*Hover and Checked State Logic*/
+/*Color stars when hovering*/
+.rating > label:hover,
+.rating > label:hover ~ label {
+    color: #ffc107; /*Highlight color on hover*/
+}
+
+/*Color stars when rated*/
+.rating > input:checked ~ label {
+    color: #ffc107; /*Highlight color when checked*/
+}
+
+/*Reset hover if a star is checked)*/
+.rating > input:checked ~ label:hover,
+.rating > input:checked ~ label:hover ~ label {
+    color: #ffc107; 
+}
+
+
 
 
 /*Modal (Pop-up) For Review Feedback*/

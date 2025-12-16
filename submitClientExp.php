@@ -28,8 +28,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     //Execute
         $stmt->execute();
         $stmt->close();
-        header("Location: index.php?status=success&message=Thank you for your feedback! It will be posted after review."); 
-        exit();
+        header("Location: thankYou.html");        exit();
     }
 } else {
     //Handle Direct Access

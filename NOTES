@@ -17,7 +17,8 @@ CREATE TABLE clientfeedback (
     submitted_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 
-INSERT INTO clientfeedback (name, rating, feedback, is_approved) 
+
+INSERT INTO clientfeedback (name, rating, review_text, is_approved) 
 VALUES 
 ('James T.', 5, 'My car looks brand new again. The ceramic coating is worth every peso.', 1),
 ('Carla M.', 5, 'Great service and friendly staff. They really know how to take care of luxury cars.', 1),

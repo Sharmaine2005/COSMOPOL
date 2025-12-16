@@ -243,27 +243,46 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    // =========================================
-    // 7. DYNAMIC REVIEWS LOADING (NEW)
+// =========================================
+    // 7. DYNAMIC REVIEWS LOADING (FIXED FOR LOCAL)
     // =========================================
     function loadClientExperiences() {
         const reviewsPlaceholder = document.getElementById('client-experiences-placeholder');
         
+        // Check if we are on the homepage
         if (reviewsPlaceholder) {
-            fetch('viewClientExp.php')
-                .then(response => {
-                    if (!response.ok) {
-                        throw new Error('Server error when fetching reviews.');
-                    }
-                    return response.text();
-                })
-                .then(html => {
-                    reviewsPlaceholder.innerHTML = html;
-                })
-                .catch(error => {
-                    console.error('Error loading client experiences:', error);
-                    reviewsPlaceholder.innerHTML = '<p class="text-center" style="grid-column: 1 / -1; color: red;">Failed to load reviews. Please check server status.</p>';
-                });
+            // Instead of fetching PHP, we inject HTML directly using JavaScript
+            const mockReviewsHTML = `
+                <div class="card">
+                    <div class="card-body text-center" style="padding: 15px;">
+                        <div style="color: #ffc107; margin-bottom: 5px; font-size: 0.9rem;">
+                            <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
+                        </div>
+                        <p style="font-style: italic; margin-bottom: 10px; font-size: 0.85rem; line-height: 1.4;">"Exceptional service! My car looks brand new. The ceramic coating is a game changer."</p>
+                        <h4 style="margin-bottom: 0; color: var(--primary); font-size: 1rem;">John Doe</h4>
+                    </div>
+                </div>
+                <div class="card">
+                    <div class="card-body text-center" style="padding: 15px;">
+                        <div style="color: #ffc107; margin-bottom: 5px; font-size: 0.9rem;">
+                            <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
+                        </div>
+                        <p style="font-style: italic; margin-bottom: 10px; font-size: 0.85rem; line-height: 1.4;">"Very professional team. They handled my SUV with great care. Highly recommended!"</p>
+                        <h4 style="margin-bottom: 0; color: var(--primary); font-size: 1rem;">Maria Santos</h4>
+                    </div>
+                </div>
+                <div class="card">
+                    <div class="card-body text-center" style="padding: 15px;">
+                        <div style="color: #ffc107; margin-bottom: 5px; font-size: 0.9rem;">
+                            <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="far fa-star"></i>
+                        </div>
+                        <p style="font-style: italic; margin-bottom: 10px; font-size: 0.85rem; line-height: 1.4;">"Great tint installation. The lounge was comfortable while I waited. Good job."</p>
+                        <h4 style="margin-bottom: 0; color: var(--primary); font-size: 1rem;">Rico Tan</h4>
+                    </div>
+                </div>
+            `;
+            
+            reviewsPlaceholder.innerHTML = mockReviewsHTML;
         }
     }
     loadClientExperiences();

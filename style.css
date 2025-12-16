@@ -401,7 +401,7 @@ details[open] { background: var(--bg-light); }
     align-items: center;
     justify-content: center;
     text-align: center;
-    clip-path: polygon(0 0, 100% 0, 100% 92%, 0 100%);
+    clip-path: polygon(0 0, 100% 0, 100% 90%, 0 100%);
     margin-bottom: -50px;
     color: #fff;
 }
@@ -491,7 +491,7 @@ details[open] { background: var(--bg-light); }
     width: 100%;
     height: 60vh;
     overflow: hidden;
-    clip-path: polygon(0 0, 100% 0, 100% 92%, 0 100%);
+    clip-path: polygon(0 0, 100% 0, 100% 90%, 0 100%);
     margin-bottom: -50px;
 }
 
@@ -984,12 +984,13 @@ body.dark-mode .modal-content { background: #1a1a1a; border: 1px solid #333; }
     padding-top: 60px; 
 }
 
-/* We target the modal-content INSIDE feedbackModal specifically */
-#feedbackModal .modal-content {  
+/* We target the feedback-form INSIDE feedbackModal specifically */
+#feedbackModal .feedback-form {  
     background-color: var(--bg-color); 
     margin: 5% auto; 
     padding: 30px;
-    border: 1px solid var(--border-color);
+    /* Removed the border variable if not defined, or keep if you have it */
+    border: 1px solid #ddd; 
     width: 90%; 
     max-width: 380px; /* Kept small as per branch design */
     border-radius: 8px;
@@ -1012,4 +1013,298 @@ body.dark-mode .modal-content { background: #1a1a1a; border: 1px solid #333; }
     color: var(--highlight);
     text-decoration: none;
     cursor: pointer;
+}
+/* =========================================
+   PAGE SPECIFIC HEADERS
+   ========================================= */
+
+/* Overrides the default placeholder for the About page */
+.page-header.header-about {
+    /* Uses a sleek close-up image for the story/about section */
+    background-image: linear-gradient(rgba(0,0,40,0.8), rgba(0,0,40,0.8)), url('assets/about-bg.png');
+}
+
+/* Overrides the default placeholder for the Services page */
+.page-header.header-services {
+    /* Uses the specific services background you uploaded */
+    background-image: linear-gradient(rgba(0,0,40,0.8), rgba(0,0,40,0.8)), url('assets/services-bg.png');
+}
+
+/* Overrides the default placeholder for the Contact page */
+.page-header.header-contact {
+    /* Uses a wide shop floor image, inviting people to visit */
+    background-image: linear-gradient(rgba(0,0,40,0.8), rgba(0,0,40,0.8)), url('assets/contact-bg.png');
+}
+
+/* =========================================
+   COMPACT HORIZONTAL TIMELINE
+   ========================================= */
+.timeline-section {
+    position: relative;
+    max-width: 1100px;
+    margin: 50px auto;
+    padding: 0 20px;
+}
+
+/* The connecting horizontal line */
+.timeline-line {
+    position: absolute;
+    top: 45px; /* Aligns with the dots */
+    left: 40px;
+    right: 40px;
+    height: 4px;
+    background: var(--bg-light);
+    border-radius: 2px;
+    z-index: 0;
+}
+
+/* Flex container for items */
+.timeline-flex {
+    display: flex;
+    justify-content: space-between;
+    position: relative;
+    z-index: 1;
+    gap: 20px;
+}
+
+.timeline-item-compact {
+    flex: 1;
+    text-align: center;
+    position: relative;
+}
+
+/* The Year (Top) */
+.timeline-year-compact {
+    display: block;
+    font-size: 1.4rem;
+    font-weight: 800;
+    color: var(--primary);
+    margin-bottom: 10px;
+    transition: var(--transition);
+}
+
+/* The Dot (Middle) */
+.timeline-dot {
+    width: 16px;
+    height: 16px;
+    background: var(--bg-color); /* White center */
+    border: 4px solid var(--accent); /* Red ring */
+    border-radius: 50%;
+    margin: 0 auto 20px;
+    position: relative;
+    z-index: 1;
+    box-shadow: 0 0 0 5px var(--bg-color); /* Spacing from line */
+    transition: var(--transition);
+}
+
+/* The Content Box (Bottom) */
+.timeline-content-compact {
+    background: var(--card-bg);
+    padding: 15px 20px;
+    border-radius: 8px;
+    box-shadow: var(--shadow-card);
+    transition: var(--transition);
+    border-top: 3px solid transparent;
+    font-size: 0.9rem;
+    color: var(--text-light);
+}
+
+.timeline-content-compact h4 {
+    color: var(--highlight);
+    font-size: 1.1rem;
+    margin-bottom: 8px;
+}
+
+/* Hover Effects */
+.timeline-item-compact:hover .timeline-dot {
+    background: var(--highlight);
+    border-color: var(--highlight);
+    transform: scale(1.3);
+}
+
+.timeline-item-compact:hover .timeline-year-compact {
+    color: var(--highlight);
+    transform: translateY(-5px);
+}
+
+.timeline-item-compact:hover .timeline-content-compact {
+    transform: translateY(-5px);
+    border-top-color: var(--highlight);
+    box-shadow: var(--shadow-hover);
+}
+
+/* --- Mobile Responsive: Stack Vertically --- */
+@media (max-width: 768px) {
+    .timeline-line {
+        width: 4px;
+        height: calc(100% - 50px);
+        left: 26px; /* Align line with dots on left */
+        top: 10px;
+        right: auto;
+    }
+    
+    .timeline-flex {
+        flex-direction: column;
+        gap: 30px;
+    }
+    
+    .timeline-item-compact {
+        text-align: left;
+        padding-left: 60px;
+        display: flex;
+        flex-direction: column;
+    }
+    
+    .timeline-dot {
+        position: absolute;
+        left: 20px;
+        top: 5px;
+        margin: 0;
+        transform: translateX(-50%);
+    }
+    
+    .timeline-year-compact {
+        margin-top: -2px; 
+    }
+    
+}
+/* =========================================
+   PARTNERS GRID LAYOUT (FIX)
+   ========================================= */
+.partners-grid-static {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 40px;
+    margin-top: 40px;
+}
+
+/* =========================================
+   ENHANCED FEEDBACK FORM STYLES
+   ========================================= */
+/* The background overlay */
+#feedbackModal {
+    background-color: rgba(0, 0, 0, 0.7) !important;
+    backdrop-filter: blur(5px); /* Adds a modern blur effect */
+}
+
+/* The white card container */
+.feedback-form {
+    background: #ffffff;
+    padding: 40px;
+    border-radius: 16px; /* Smoother corners */
+    box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+    width: 90%;
+    max-width: 450px;
+    margin: 8vh auto; /* Vertical spacing */
+    position: relative;
+    animation: slideUpFade 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+@keyframes slideUpFade {
+    from { opacity: 0; transform: translateY(30px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+.feedback-form h3 {
+    text-align: center;
+    color: var(--primary);
+    margin-bottom: 25px;
+    font-size: 1.8rem;
+    font-weight: 700;
+}
+
+/* Input Fields */
+.feedback-form label {
+    display: block;
+    font-weight: 600;
+    margin-bottom: 8px;
+    color: var(--text-color);
+    font-size: 0.9rem;
+}
+
+.feedback-form input[type="text"],
+.feedback-form textarea {
+    width: 100%;
+    padding: 12px 16px;
+    border: 2px solid #eef0f3;
+    border-radius: 8px;
+    font-family: var(--font-body);
+    font-size: 1rem;
+    transition: all 0.3s ease;
+    background: #f8f9fa;
+    color: #333;
+}
+
+.feedback-form input[type="text"]:focus,
+.feedback-form textarea:focus {
+    border-color: var(--highlight);
+    background: #fff;
+    box-shadow: 0 0 0 4px rgba(0, 86, 179, 0.1); /* Soft glow focus */
+    outline: none;
+}
+
+/* Star Rating Container */
+.star-rating-group .rating {
+    display: flex;
+    flex-direction: row-reverse; /* Required for the star logic */
+    justify-content: center;
+    gap: 8px;
+    background: #f0f2f5;
+    padding: 12px;
+    border-radius: 50px;
+    margin-top: 5px;
+}
+
+/* Submit Button */
+.feedback-form .btn-primary {
+    width: 100%;
+    padding: 16px;
+    font-size: 1.1rem;
+    margin-top: 20px;
+    border-radius: 50px;
+    background: linear-gradient(135deg, var(--primary) 0%, var(--highlight) 100%);
+    color: white;
+    border: none;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    font-weight: 700;
+    box-shadow: 0 10px 20px rgba(0, 86, 179, 0.2);
+}
+
+.feedback-form .btn-primary:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 15px 30px rgba(0, 86, 179, 0.3);
+}
+
+/* Close Button */
+.close-btn {
+    position: absolute;
+    top: 20px;
+    right: 25px;
+    font-size: 2rem;
+    color: #aaa;
+    line-height: 1;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.close-btn:hover {
+    color: var(--accent);
+    transform: rotate(90deg);
+}
+
+/* Dark Mode Adjustments */
+body.dark-mode .feedback-form {
+    background: var(--card-bg);
+    border: 1px solid #333;
+}
+body.dark-mode .feedback-form input, 
+body.dark-mode .feedback-form textarea {
+    background: #1a1a1a;
+    border-color: #333;
+    color: #fff;
+}
+body.dark-mode .rating {
+    background: #1a1a1a;
 }

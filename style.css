@@ -1022,12 +1022,16 @@ body.dark-mode .modal-content { background: #1a1a1a; border: 1px solid #333; }
 .page-header.header-about {
     /* Uses a sleek close-up image for the story/about section */
     background-image: linear-gradient(rgba(0,0,40,0.8), rgba(0,0,40,0.8)), url('assets/about-bg.png');
+    clip-path: polygon(0 0, 100% 0, 100% 90%, 0 100%);
+    margin-bottom: -50px;
 }
 
 /* Overrides the default placeholder for the Services page */
 .page-header.header-services {
     /* Uses the specific services background you uploaded */
     background-image: linear-gradient(rgba(0,0,40,0.8), rgba(0,0,40,0.8)), url('assets/services-bg.png');
+    clip-path: polygon(0 0, 100% 0, 100% 90%, 0 100%);
+    margin-bottom: -50px;
 }
 
 /* Overrides the default placeholder for the Contact page */

@@ -243,7 +243,7 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-// =========================================
+    // =========================================
     // 7. DYNAMIC REVIEWS LOADING (FIXED FOR LOCAL)
     // =========================================
     function loadClientExperiences() {
